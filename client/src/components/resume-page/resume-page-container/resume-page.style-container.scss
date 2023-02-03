@@ -1,0 +1,19 @@
+.single-resume-page:not(:last-child){
+    margin-bottom: 20px;
+}
+.resume-page{
+    position: relative;
+    z-index: 0;
+
+}
+.resume-page-background{
+    position: absolute;
+    top: 20vh;
+    opacity: 0.075;
+    color:#245097 ;
+    // left: 50;
+    transform: rotate(45deg);
+    font-weight: 700;
+    font-size: 200px;
+    z-index: -1;
+}
