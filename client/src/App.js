@@ -6,6 +6,7 @@ import RedirectionAuthBased from "./components/auth/redirection-auth-based/redir
 import RequireAuth from "./components/auth/require-auth/require-auth.component";
 import { ROLES_LIST } from "./roles_list";
 import ResumeListing from "./pages/resume-listing/resume-listing.component";
+// import UserManagement from "./pages/user-management/user-management.component";
 import UserManagement from "./pages/user-management/user-management.component";
 
 import PersistLogin from './components/auth/persist-login/persist-login.component'
@@ -15,16 +16,19 @@ function App() {
     <Routes>
 
       <Route path="/sign-in" element={<SignIn />} />
-      
+
       <Route element={<PersistLogin />}>
         <Route index element={<RedirectionAuthBased />} />
+
         <Route element={<RequireAuth allowedRoles={[ROLES_LIST.User]} />}>
           <Route path="/resume-listing" element={<ResumeListing />} />
           <Route path="/resume-construction" element={<ResumeConstruction />} />
         </Route>
+        
         <Route element={<RequireAuth allowedRoles={[ROLES_LIST.Admin]} />}>
           <Route path="/user-management" element={<UserManagement />} />
         </Route>
+
       </Route>
     </Routes>
   );

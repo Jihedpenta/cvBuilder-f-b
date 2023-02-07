@@ -9,6 +9,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import {AuthProvider} from "./context/auth.context";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
+import { UserListProvider } from "./context/user-list.context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const queryClient = new QueryClient();
@@ -19,9 +20,12 @@ root.render(
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
           <PagesContentProvider>
+          <UserListProvider>
+
             <Routes>
               <Route path="/*" element={<App />} />
             </Routes>
+            </UserListProvider>
           </PagesContentProvider>
         </AuthProvider>
         <ReactQueryDevtools initialIsOpen />

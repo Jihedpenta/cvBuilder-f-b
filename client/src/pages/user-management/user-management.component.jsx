@@ -16,15 +16,16 @@ import Paper from '@mui/material/Paper';
 import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import NotificationsIcon from '@mui/icons-material/Notifications';
+// import ExitToAppIcon from '@mui/icons-material/Notifications';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import PeopleIcon from '@mui/icons-material/People';
 import AssignmentIcon from '@mui/icons-material/Assignment';
+import EnhancedTable from '../../components/user-list/user-list.component';
+import useLogout from '../../hooks/useLogout';
+import { Navigate } from 'react-router-dom';
+import CreateUser from '../../components/create-user/create-user.component';
 
-// import { mainListItems, secondaryListItems } from './listItems';
-// import Chart from './Chart';
-// import Deposits from './Deposits';
-// import Orders from './Orders';
 
 function Copyright(props) {
   return (
@@ -85,9 +86,16 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-const mdTheme = createTheme();
-
 function DashboardContent() {
+
+    
+const mdTheme = createTheme();
+const logout = useLogout();
+// const rows = []
+const signOut = async () => {
+    await logout();
+    Navigate('/sign-in');
+}
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -124,10 +132,9 @@ function DashboardContent() {
             >
               Dashboard
             </Typography>
-            <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-              </Badge>
+            <IconButton color="inherit" onClick={signOut}>
+                <ExitToAppIcon />
+
             </IconButton>
           </Toolbar>
         </AppBar>
@@ -180,8 +187,8 @@ function DashboardContent() {
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
               {/* Chart */}
-              <Grid item xs={12} md={8} lg={9}>
-                <Paper
+              <Grid item xs={12} md={6} lg={7} >
+                {/**<Paper
                   sx={{
                     p: 2,
                     display: 'flex',
@@ -189,33 +196,29 @@ function DashboardContent() {
                     height: 240,
                   }}
                 >
-                {/**<Chart /> */}
+                <Chart /> 
+             </Paper>
+            */}
                   
-                </Paper>
+               <EnhancedTable />
               </Grid>
               {/* Recent Deposits */}
-              <Grid item xs={12} md={4} lg={3}>
+              <Grid item xs={12} md={6} lg={5}>
                 <Paper
                   sx={{
                     p: 2,
                     display: 'flex',
                     flexDirection: 'column',
-                    height: 240,
+                    // height: 240,
                   }}
                 >
                 {/**<Deposits /> */}
-
+                  <CreateUser />
                   
                 </Paper>
               </Grid>
               {/* Recent Orders */}
-              <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                {/**<Orders /> */}
-
-                  
-                </Paper>
-              </Grid>
+              
             </Grid>
             <Copyright sx={{ pt: 4 }} />
           </Container>
