@@ -1,30 +1,35 @@
 import React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
+
+import SaveIcon from '@mui/icons-material/Save';
 import DownloadIcon from '@mui/icons-material/Download';
+import { Button } from '@mui/material';
 
 const ResumeFormBar = () => {
-    return (
-        <Box sx={{ flexGrow: 1,
-            width:'100%',
-        }} >
-        <AppBar position="static" sx={{
-            background:"#245097"
-        }}>
-          <Toolbar variant="dense">
-            <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-              <DownloadIcon />
-            </IconButton>
-            <Typography variant="h6" color="inherit" component="div">
-              Download PDF
-            </Typography>
-          </Toolbar>
-        </AppBar>
-      </Box>
-    );
+  return (
+
+    <div style={{
+      backgroundColor: '#245097',
+      width: 'inherit',
+      bottom: 0,
+      position: 'fixed', 
+      padding:'10px', 
+      display:'flex',
+      justifyContent:'space-between'
+    }}>
+      <Button variant="outline"  sx={{ color: 'white' }}>
+        <DownloadIcon  />
+        Download PDF
+      </Button>
+      <Button sx={{ color: 'white' }}>
+        <SaveIcon />
+        Save
+      </Button>
+    </div>
+
+
+
+
+  );
 };
 
 export default ResumeFormBar;

@@ -34,8 +34,8 @@ const ResumePreview = () => {
     <Grid
       item
       xs={12}
-      sm={5}
-      md={5}
+      sm={6}
+      md={6}
       sx={{
         padding: '20px'
       }}

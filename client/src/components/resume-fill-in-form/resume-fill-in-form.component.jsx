@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -10,9 +10,17 @@ import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Text
 import { useContext } from 'react';
 import { PagesContentContext } from '../../context/pages-content.context';
 import ResumeFormBar from '../resume-form-sections/resume-form-bar/resume-form-bar.component';
-
+import GeneralInfoForm from '../resume-form-sections/general-info-form/general-info-form.component';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import SaveIcon from '@mui/icons-material/Save';
+import DownloadIcon from '@mui/icons-material/Download';
+import ResumeTypeForm from '../resume-form-sections/resume-type-form/resume-type-form.component';
 
 const ResumeFillInForm = () => {
+  const containerRef = useRef()
+  const navRef = useRef()
+  const [navWidth, setNavWidth] = useState(0)
   const { setResumeContent, resumeContent } = useContext(PagesContentContext);
   const handleClick = () => {
     const newContent = JSON.parse(JSON.stringify(resumeContent));
@@ -26,113 +34,45 @@ const ResumeFillInForm = () => {
     setResumeContent(newContent)
 
   }
+  useEffect(() => {
+    setNavWidth(containerRef.current.offsetWidth)
+  })
   return (
     <Grid item
       xs={12}
-      sm={7}
-      md={7}
+      sm={6}
+      md={6}
       component={Paper}
       elevation={6}
       square
+      ref={containerRef}
     >
       <Box
         sx={{
-
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          // width:'100%',
-          // backgroundColor:'red'
+          width: '100%',
         }}
       >
-        <ResumeFormBar />
+      <ResumeTypeForm />
+        <GeneralInfoForm />
 
-
-        <Card sx={{ maxWidth: '80%', mt: 2 }}>
-          <CardContent>
-            <Box >
-
-              <Typography gutterBottom variant="h5" component="div">
-                General Info
-              </Typography>
-              <Grid>
-                <TextField
-                  required
-                  id="outlined-required"
-                  label="Required"
-                  sx={{ mb: 2, mr: 2 }}
-
-                />
-
-                <TextField
-                  required
-                  id="outlined-required"
-                  label="Required"
-                  sx={{ mb: 2, mr: 2 }}
-
-                />
-                <TextField
-                  required
-                  id="outlined-required"
-                  label="Required"
-                  defaultValue="Hello World"
-                  sx={{ mb: 2, mr: 2 }}
-
-                />
-
-                <TextField
-                  id="outlined-helperText"
-                  label="Helper text"
-                  defaultValue="Default Value"
-                  helperText="Some important text"
-                />
-              </Grid>
-              <Grid>
-                <TextField
-                  required
-                  id="outlined-required"
-                  label="Required"
-                  sx={{ mb: 2, mr: 2 }}
-
-                />
-
-                <TextField
-                  required
-                  id="outlined-required"
-                  label="Required"
-                  sx={{ mb: 2, mr: 2 }}
-
-                />
-                <TextField
-                  required
-                  id="outlined-required"
-                  label="Required"
-                  defaultValue="Hello World"
-                  sx={{ mb: 2, mr: 2 }}
-
-                />
-
-                <TextField
-                  id="outlined-helperText"
-                  label="Helper text"
-                  defaultValue="Default Value"
-                  helperText="Some important text"
-                />
-              </Grid>
-            </Box>
-
-
-          </CardContent>
-          <CardActions>
-            <Button size="small" color="primary">
-              Add new
-            </Button>
-          </CardActions>
-        </Card>
-
+        {/** 
 
         <Button onClick={handleClick}>Click Here</Button>
+         
+           
+*/}
+        <div ref={navRef} style={{
+          width: navWidth
+        }}>
+        <ResumeFormBar/>
+
+        </div>
       </Box>
+
+
     </Grid>
   );
 };

@@ -21,6 +21,11 @@ export default function ResumeConstruction() {
         `,
       },
     },
+    palette: {
+      primary: {
+        main: '#245097',
+      },
+    },
   });
   theme = responsiveFontSizes(theme);
 
@@ -28,7 +33,7 @@ export default function ResumeConstruction() {
 
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Grid container component="main">
+      <Grid container>
         <ResumePreview />
         <ResumeFillInForm />
       </Grid>

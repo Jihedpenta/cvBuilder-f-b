@@ -1,12 +1,14 @@
+import { useState } from "react";
 import useAxiosPrivate from "./useAxiosPrivate";
 
 const useGetUsers = () => {
     const axiosPrivate = useAxiosPrivate();
+    const [controller, setController] = useState(new AbortController());
 
-    const getUsers = async (signal) => {
+    const getUsers = async () => {
         try {
             const {data} = await axiosPrivate.get('/users', {
-                signal: signal
+                signal: controller.signal
             });
             return data
         } catch (error) {

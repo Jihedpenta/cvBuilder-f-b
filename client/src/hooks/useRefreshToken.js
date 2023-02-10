@@ -6,7 +6,8 @@ import useAuth from './useAuth';
 const useRefreshToken = () => {
     const { setAuth } = useAuth()
     console.log('use refresh token fired');
-    const { status, refetch } = useQuery('refreshToken', refreshToken, {
+    const { status,data, isError, refetch } = useQuery('refreshToken', refreshToken, {
+      fetchPolicy: 'cache-only',
         onSuccess: (data) => {
           setAuth((prev) => {
             console.log("data", data);
@@ -21,7 +22,8 @@ const useRefreshToken = () => {
 
     return {
       refreshTokenLoading: status === 'loading',
-      refreshingToken: refetch
+      refreshingToken: refetch,
+      token: data
     }
 };
 

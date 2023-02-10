@@ -20,12 +20,10 @@ root.render(
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
           <PagesContentProvider>
-          <UserListProvider>
 
             <Routes>
               <Route path="/*" element={<App />} />
             </Routes>
-            </UserListProvider>
           </PagesContentProvider>
         </AuthProvider>
         <ReactQueryDevtools initialIsOpen />

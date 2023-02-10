@@ -9,23 +9,12 @@ import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
-import Link from "@mui/material/Link";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-// import ExitToAppIcon from '@mui/icons-material/Notifications';
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
-import PeopleIcon from "@mui/icons-material/People";
-import AssignmentIcon from "@mui/icons-material/Assignment";
-import EnhancedTable from "../../components/user-list/user-list.component";
 import useLogout from "../../hooks/useLogout";
-import { Navigate } from "react-router-dom";
-import CreateUser from "../../components/create-user/create-user.component";
-
-
+import { Navigate, Outlet, Link } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -73,8 +62,14 @@ const Drawer = styled(MuiDrawer, {
   },
 }));
 
-function DashboardContent() {
-  const mdTheme = createTheme();
+export default function Layout({ menuItems }) {
+  const mdTheme = createTheme({
+    palette: {
+      primary: {
+        main: '#245097',
+      },
+    },
+  });
   const logout = useLogout();
   // const rows = []
   const signOut = async () => {
@@ -137,18 +132,23 @@ function DashboardContent() {
           </Toolbar>
           <Divider />
           <List component="nav">
-            <ListItemButton>
-              <ListItemIcon>
-                <PeopleIcon />
-              </ListItemIcon>
-              <ListItemText primary="User Management" />
-            </ListItemButton>
-            <ListItemButton>
-              <ListItemIcon>
-                <AssignmentIcon />
-              </ListItemIcon>
-              <ListItemText primary="Resumes" />
-            </ListItemButton>
+            {menuItems.map((menuItem, index) => {
+              return (
+                <Link to={menuItem.path} style={{
+                    textDecoration: 'none',
+                    color:'#000000DE'
+                }}>
+                <ListItemButton key={index}>
+                  <ListItemIcon>
+                    {menuItem.icon}
+                  </ListItemIcon>
+                  <ListItemText primary={menuItem.name} />
+                </ListItemButton>
+                </Link>
+              );
+            })}
+
+            
           </List>
         </Drawer>
         <Box
@@ -165,35 +165,9 @@ function DashboardContent() {
         >
           <Toolbar />
 
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            <Grid container spacing={3}>
-              {/* Chart */}
-              <Grid item xs={12} md={6} lg={7}>
-                <EnhancedTable />
-              </Grid>
-              {/* Recent Deposits */}
-              <Grid item xs={12} md={6} lg={5}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                  }}
-                >
-                  <CreateUser />
-                </Paper>
-              </Grid>
-            </Grid>
-          </Container>
-
-
-
+          <Outlet />
         </Box>
       </Box>
     </ThemeProvider>
   );
-}
-
-export default function Dashboard() {
-  return <DashboardContent />;
 }

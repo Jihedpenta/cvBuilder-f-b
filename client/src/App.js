@@ -10,8 +10,12 @@ import ResumeListing from "./pages/resume-listing/resume-listing.component";
 import UserManagement from "./pages/user-management/user-management.component";
 
 import PersistLogin from './components/auth/persist-login/persist-login.component'
+import Layout from "./components/layout/layout.component";
+
+import {adminNavItems, userNavItems} from './utils/nav-items'
 
 function App() {
+
   return (
     <Routes>
 
@@ -21,8 +25,12 @@ function App() {
         <Route index element={<RedirectionAuthBased />} />
 
         <Route element={<RequireAuth allowedRoles={[ROLES_LIST.User]} />}>
+
+        <Route element={<Layout menuItems={userNavItems} />}>
+        
           <Route path="/resume-listing" element={<ResumeListing />} />
-          <Route path="/resume-construction" element={<ResumeConstruction />} />
+          <Route path="/new-resume" element={<ResumeConstruction />} />
+          </Route>
         </Route>
         
         <Route element={<RequireAuth allowedRoles={[ROLES_LIST.Admin]} />}>
