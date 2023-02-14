@@ -163,7 +163,7 @@ export default function Layout({ menuItems }) {
             overflow: "auto",
           }}
         >
-          <Toolbar />
+        <Toolbar />
 
           <Outlet />
         </Box>

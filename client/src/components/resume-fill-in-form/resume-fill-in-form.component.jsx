@@ -6,37 +6,50 @@ import Grid from '@mui/material/Grid';
 
 
 import './resume-fill-in-form.style.scss'
-import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, TextField, Typography } from '@mui/material';
 import { useContext } from 'react';
 import { PagesContentContext } from '../../context/pages-content.context';
 import ResumeFormBar from '../resume-form-sections/resume-form-bar/resume-form-bar.component';
 import GeneralInfoForm from '../resume-form-sections/general-info-form/general-info-form.component';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import SaveIcon from '@mui/icons-material/Save';
-import DownloadIcon from '@mui/icons-material/Download';
 import ResumeTypeForm from '../resume-form-sections/resume-type-form/resume-type-form.component';
+import SummeryForm from '../resume-form-sections/summery-form/summery-form.component';
+import EducationForm from '../resume-form-sections/education-form/education-form.component';
+import CertificationForm from '../resume-form-sections/certification-form/certification-form.component';
+import ExperienceForm from '../resume-form-sections/experience-form/experience-form.component';
+import ProjectsForm from '../resume-form-sections/projects-form/projects-form.component';
+import SkillsForm from '../resume-form-sections/skills-form/skills-form.component';
+import ToolsForm from '../resume-form-sections/tools-form/tools-form.component';
+import LanguagesForm from '../resume-form-sections/languages-form/languages-form.component';
 
 const ResumeFillInForm = () => {
   const containerRef = useRef()
   const navRef = useRef()
   const [navWidth, setNavWidth] = useState(0)
   const { setResumeContent, resumeContent } = useContext(PagesContentContext);
-  const handleClick = () => {
-    const newContent = JSON.parse(JSON.stringify(resumeContent));
-    console.log(newContent.data.experiences)
-    newContent.data.experiences.push(newContent.data.experiences[0])
-    newContent.data.experiences.push(newContent.data.experiences[1])
-    newContent.data.experiences.push(newContent.data.experiences[2])
-
-    newContent.data.projects.push(newContent.data.projects[0])
-    newContent.data.projects.push(newContent.data.projects[0])
-    setResumeContent(newContent)
-
-  }
+ 
   useEffect(() => {
-    setNavWidth(containerRef.current.offsetWidth)
-  })
+
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const { width, height } = entry.contentRect;
+        setNavWidth(width);
+
+        // Do something with the new width and height
+        console.log(width, height);
+      }
+    });
+
+    // Observe the element for changes in size
+    resizeObserver.observe(containerRef.current);
+
+    // Disconnect the observer when the component unmounts
+    return () => {
+      resizeObserver.disconnect();
+    };
+  },[])
+
+  
   return (
     <Grid item
       xs={12}
@@ -55,19 +68,21 @@ const ResumeFillInForm = () => {
           width: '100%',
         }}
       >
-      <ResumeTypeForm />
+        <ResumeTypeForm />
         <GeneralInfoForm />
+        <SummeryForm />
+        <EducationForm />
+        <CertificationForm />
+        <ExperienceForm/> 
+        <ProjectsForm />
+        <SkillsForm />
+        <ToolsForm />
+        <LanguagesForm />
 
-        {/** 
-
-        <Button onClick={handleClick}>Click Here</Button>
-         
-           
-*/}
-        <div ref={navRef} style={{
+        <div  style={{
           width: navWidth
         }}>
-        <ResumeFormBar/>
+          <ResumeFormBar />
 
         </div>
       </Box>

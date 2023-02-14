@@ -19,6 +19,9 @@ const ResumePageContainer = ({ children, primaryColor, pentaContact, innerRef, i
             setFooterHeight(innerRef.current.offsetWidth * 0.09);
         }
         window.addEventListener('resize', handleResize)
+        return () => {
+            window.removeEventListener('resize', handleResize);
+          };
     }, []);
 
     // const some_var = []
