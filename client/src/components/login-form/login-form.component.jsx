@@ -21,8 +21,8 @@ import useRefreshToken from "../../hooks/useRefreshToken";
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
-  const { setAuth, persist, setPersist, auth, sessionSigned, setSessionSigned } = useAuth();
-  const { refreshingToken, refreshTokenLoading } = useRefreshToken();
+  const { setAuth, persist, setPersist, auth } = useAuth();
+  const { refreshTokenLoading , refreshingToken } = useRefreshToken();
 
   const navigate = useNavigate();
 
@@ -31,26 +31,31 @@ const LoginForm = () => {
   }
 
 
-useEffect(()=>{
-  if (auth?.accessToken){
-    navigate('/', { replace: true });
-  }
-},[auth])
+  useEffect(()=>{
+    const refresh = async ()=>{
+      const data = await refreshingToken()
+      return data
+    }
+    refresh()
+  },[])
+  useEffect(()=>{
+    if (auth?.accessToken){
+      navigate('/', { replace: true });
+    }
+  },[auth])
 
-useEffect(() => {
-  localStorage.setItem("persist", persist);
-}, [persist])
+  useEffect(() => {
+    localStorage.setItem("persist", persist);
+  }, [persist])
 
-// useEffect(() => {
-//   sessionStorage.setItem("sessionSigned", sessionSigned);
-// }, [sessionSigned])
 
-  const { isLoading, error, isError, mutateAsync, data } = useMutation(
+  const { isLoading, error, isError, mutateAsync } = useMutation(
     'signIn',
     loginUser,
     {
+      enabled:false,
       onSuccess: (data) => {
-        sessionStorage.setItem("sessionSigned", true);
+        sessionStorage.setItem("sessionSigned",true)
         setAuth({ roles: data.roles, accessToken: data.accessToken })
         const home = data.roles.find(role => role === ROLES_LIST.Admin)
           ? "/user-management"
@@ -64,8 +69,13 @@ useEffect(() => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log('handling submit');
     await mutateAsync({ email, pwd })
   };
+
+  if(refreshTokenLoading) return (<h2>Refreshing</h2>)
+
+
   return (
     <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
 

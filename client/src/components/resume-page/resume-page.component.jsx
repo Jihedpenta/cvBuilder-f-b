@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { PagesContentContext } from '../../context/pages-content.context';
+import React, { useEffect } from 'react';
 import useInitilizeRefs from '../../hooks/useInitilizeRefs';
+import useResume from '../../hooks/useResume';
 import { addContentSlice, redoAndAppendToNewPage } from '../../utils/resume-utils';
 import { contentHeightTotal, getColor, getLogoUrl } from '../../utils/ui-utils';
 import ResumeCertificationList from '../resume-sections/resume-certifications/resume-certifications-list/resume-certification-list.component';
@@ -20,7 +20,7 @@ const ResumePage = ({ content, industry, pentaContact, index }) => {
     const { containerRef, headerRef, topPageRef, summaryRef, educationRef, certifRef, workExpRef, projectRef, skillRef, toolRef, langRef } = useInitilizeRefs()
     const primaryColor = getColor(industry)
     const logo_link = getLogoUrl(industry);
-    const { pagesHeight, contentToFill, setContentToFill, pagesContent, setPagesContent } = useContext(PagesContentContext)
+    const { pagesHeight, contentToFill, setContentToFill, pagesContent, setPagesContent } = useResume()
 
 
 
@@ -29,31 +29,31 @@ const ResumePage = ({ content, industry, pentaContact, index }) => {
     useEffect(() => {
         const totalContentLength = contentHeightTotal([headerRef, topPageRef, summaryRef, educationRef, certifRef, workExpRef, projectRef, skillRef, toolRef, langRef])
 
-        if(pagesHeight[index]) {
-        if (totalContentLength < pagesHeight[index] - 100) {
-            if (totalContentLength > 0 && !pagesContent[index + 1]) {
-                //if there's content to add 
-                // add content slice 
-                if (Object.keys(contentToFill).length !== 0) {
-                    const [pageCurrentContent, newContentToFill] = addContentSlice(pagesContent[index], contentToFill)
-                    const newPagesContent = JSON.parse(JSON.stringify(pagesContent));
-                    newPagesContent[index] = pageCurrentContent
-                    if (JSON.stringify(pagesContent) !== JSON.stringify(newPagesContent)) {
-                        setPagesContent(newPagesContent);
-                    }
-                    if (JSON.stringify(contentToFill) !== JSON.stringify(newContentToFill)) {
-                        setContentToFill(newContentToFill);
+        if (pagesHeight[index]) {
+            if (totalContentLength < pagesHeight[index] - 100) {
+                if (totalContentLength > 0 && !pagesContent[index + 1]) {
+                    //if there's content to add 
+                    // add content slice 
+                    if (Object.keys(contentToFill).length !== 0) {
+                        const [pageCurrentContent, newContentToFill] = addContentSlice(pagesContent[index], contentToFill)
+                        const newPagesContent = JSON.parse(JSON.stringify(pagesContent));
+                        newPagesContent[index] = pageCurrentContent
+                        if (JSON.stringify(pagesContent) !== JSON.stringify(newPagesContent)) {
+                            setPagesContent(newPagesContent);
+                        }
+                        if (JSON.stringify(contentToFill) !== JSON.stringify(newContentToFill)) {
+                            setContentToFill(newContentToFill);
+                        }
                     }
                 }
-            }
-        } else {
+            } else {
                 const [nextPageContent, newCurrentPageContent] = redoAndAppendToNewPage(pagesContent[index])
                 const newPagesContent = JSON.parse(JSON.stringify(pagesContent));
                 newPagesContent[index] = newCurrentPageContent
                 newPagesContent.push(nextPageContent)
                 setPagesContent(newPagesContent);
+            }
         }
-    }
 
     }, [pagesContent, contentToFill, pagesHeight])
 

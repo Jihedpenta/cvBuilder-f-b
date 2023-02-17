@@ -2,12 +2,7 @@ import React, { useRef } from 'react';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-
-
-
 import './resume-fill-in-form.style.scss'
-import { useContext } from 'react';
-import { PagesContentContext } from '../../context/pages-content.context';
 import ResumeFormBar from '../resume-form-sections/resume-form-bar/resume-form-bar.component';
 import GeneralInfoForm from '../resume-form-sections/general-info-form/general-info-form.component';
 import { useEffect } from 'react';
@@ -21,12 +16,13 @@ import ProjectsForm from '../resume-form-sections/projects-form/projects-form.co
 import SkillsForm from '../resume-form-sections/skills-form/skills-form.component';
 import ToolsForm from '../resume-form-sections/tools-form/tools-form.component';
 import LanguagesForm from '../resume-form-sections/languages-form/languages-form.component';
+import useResume from '../../hooks/useResume';
 
 const ResumeFillInForm = () => {
   const containerRef = useRef()
   const navRef = useRef()
   const [navWidth, setNavWidth] = useState(0)
-  const { setResumeContent, resumeContent } = useContext(PagesContentContext);
+  const { setResumeContent, resumeContent } = useResume();
  
   useEffect(() => {
 
@@ -40,7 +36,6 @@ const ResumeFillInForm = () => {
       }
     });
 
-    // Observe the element for changes in size
     resizeObserver.observe(containerRef.current);
 
     // Disconnect the observer when the component unmounts

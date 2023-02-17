@@ -1,12 +1,12 @@
 import { Grid, Paper } from '@mui/material';
 import { Box } from '@mui/system';
-import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
-import { PagesContentContext } from '../../../context/pages-content.context';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
+import useResume from '../../../hooks/useResume';
 import ResumeFooter from '../../resume-sections/resume-footer/resume-footer.component';
 import './resume-page.style-container.scss';
 
 const ResumePageContainer = ({ children, primaryColor, pentaContact, innerRef, index }) => {
-    const {pagesHeight, setPagesHeight} = useContext(PagesContentContext)
+    const {pagesHeight, setPagesHeight} = useResume()
 
     // const ref = useRef(null);
     const [height, setHeight] = useState(0);

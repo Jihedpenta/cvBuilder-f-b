@@ -7,7 +7,7 @@ import useRefreshToken from "../../../hooks/useRefreshToken";
 
 const PersistLogin = () => {
     const { persist } = useAuth()
-    const { refreshTokenLoading } = useRefreshToken();
+    const { refreshTokenLoading } = useRefreshToken(true);
     const logout = useLogout();
     const navigate = useNavigate();
 

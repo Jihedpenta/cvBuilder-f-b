@@ -1,9 +1,8 @@
-import { Button, Grid, IconButton, InputAdornment, TextField, Typography } from '@mui/material';
+import { Button, Grid, IconButton,  TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import FormCard from '../form-card/form-card.component';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import DatePicker from 'react-datepicker';
 
 const EducationForm = () => {
     const [selectedDate, setSelectedDate] = React.useState(new Date());

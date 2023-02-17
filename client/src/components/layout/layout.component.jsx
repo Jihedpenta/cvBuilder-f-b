@@ -137,8 +137,8 @@ export default function Layout({ menuItems }) {
                 <Link to={menuItem.path} style={{
                     textDecoration: 'none',
                     color:'#000000DE'
-                }}>
-                <ListItemButton key={index}>
+                }}  key={index}>
+                <ListItemButton>
                   <ListItemIcon>
                     {menuItem.icon}
                   </ListItemIcon>

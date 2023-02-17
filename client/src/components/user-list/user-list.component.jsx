@@ -18,8 +18,6 @@ import LastPageIcon from "@mui/icons-material/LastPage";
 import { TableHead, Typography } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import { useContext } from "react";
-import { UserListContext } from "../../context/user-list.context";
 import { useQuery } from "react-query";
 import useGetUsers from "../../hooks/useGetUsers";
 
@@ -92,24 +90,22 @@ TablePaginationActions.propTypes = {
   rowsPerPage: PropTypes.number.isRequired,
 };
 
-export default function EnhancedTable() {
+export default function UserList() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const navigate = useNavigate();
   const location = useLocation();
-//   const { status, data, error, isLoading } = useContext(UserListContext);
   const getUsers = useGetUsers()
   // const [controller, setController] = React.useState(new AbortController());
 
-  const { status, data, error, isLoading } = useQuery(
+  const {  data, error, isLoading } = useQuery(
       'users',
       () => {
           return getUsers();
       },
   );
 
-  console.log(data);
-  // Avoid a layout jump when reaching the last page with empty rows.
+
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0;
 
