@@ -19,11 +19,8 @@ import ResumePageContainer from './resume-page-container/resume-page-container.c
 const ResumePage = ({ content, industry, pentaContact, index }) => {
     const { containerRef, headerRef, topPageRef, summaryRef, educationRef, certifRef, workExpRef, projectRef, skillRef, toolRef, langRef } = useInitilizeRefs()
     const primaryColor = getColor(industry)
-    const logo_link = getLogoUrl(industry);
+    const logoLink = getLogoUrl(industry);
     const { pagesHeight, contentToFill, setContentToFill, pagesContent, setPagesContent } = useResume()
-
-
-
 
 
     useEffect(() => {
@@ -65,7 +62,7 @@ const ResumePage = ({ content, industry, pentaContact, index }) => {
     return (
 
         <ResumePageContainer primaryColor={primaryColor} pentaContact={pentaContact} innerRef={containerRef} index={index}>
-            {content.header ? <ResumeHeader headerData={content.header} primaryColor={primaryColor} logo_link={logo_link} innerRef={headerRef} /> : <ResumeTopPage primaryColor={primaryColor} logo_link={logo_link} innerRef={topPageRef} />}
+            {content.header ? <ResumeHeader headerData={content.header} primaryColor={primaryColor} logoLink={logoLink} innerRef={headerRef} /> : <ResumeTopPage primaryColor={primaryColor} logoLink={logoLink} innerRef={topPageRef} />}
             {content.summary && <ResumeSummery summary={content.summary} innerRef={summaryRef} />}
             {content.educations && <ResumeEducationList educations={content.educations} primaryColor={primaryColor} innerRef={educationRef} />}
             {content.certifications && <ResumeCertificationList certifications={content.certifications} primaryColor={primaryColor} innerRef={certifRef} />}

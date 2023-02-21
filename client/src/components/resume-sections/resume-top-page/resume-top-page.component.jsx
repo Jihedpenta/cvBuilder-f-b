@@ -2,7 +2,7 @@ import { Box, Grid } from '@mui/material';
 import React from 'react';
 import ResumeDevider from '../resume-devider/resume-devider.component';
 
-const ResumeTopPage = ({ primaryColor, logo_link, innerRef }) => {
+const ResumeTopPage = ({ primaryColor, logoLink, innerRef }) => {
 
     return (
 
@@ -18,7 +18,7 @@ const ResumeTopPage = ({ primaryColor, logo_link, innerRef }) => {
             }}>
             
                 <img
-                    src={logo_link}
+                    src={logoLink}
                     alt='Pentabell Logo'
                     width='40'
                 /> 

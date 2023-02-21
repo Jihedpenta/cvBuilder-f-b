@@ -3,16 +3,18 @@ import ResumePage from '../resume-page/resume-page.component';
 import Grid from '@mui/material/Grid';
 import './resume-preview.style.scss'
 import useResume from '../../hooks/useResume';
+import i18n from 'i18next';
 
 const ResumePreview = () => {
   const {pagesContent, industry,pentaContact,language, resumeContent, setContentToFill, setPagesContent }=useResume();
-  console.log("preview rendred");
   useEffect(() => {
-    console.log('resume content edited ')
-    setContentToFill(resumeContent.data)
+    setContentToFill(resumeContent)
     setPagesContent([{}])
- 
-  }, [resumeContent])
+
+    i18n.changeLanguage(language);
+
+
+  }, [resumeContent, language, industry, pentaContact])
 
 
 
@@ -31,7 +33,7 @@ const ResumePreview = () => {
        pagesContent
         .map((elem, index ) => {        
           return (
-            <ResumePage key={index} industry={industry} pentaContact={pentaContact} lang={language} content={elem} index={index}/>
+            <ResumePage key={index} industry={industry} pentaContact={pentaContact} content={elem} index={index}/>
           )
 
         })

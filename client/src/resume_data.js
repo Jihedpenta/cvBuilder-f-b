@@ -9,19 +9,19 @@ export const RESUME_CONTENT = {
     data: 
         {
             header: {
-                full_name: 'Yahya Baghdadi',
-                job_title: '5G engeneer',
+                fullName: 'Yahya Baghdadi',
+                jobTitle: '5G engeneer',
                 adress: {
-                    adress_line: 'Cite Cdt Chrif Yahia. Rue 83 N°54 Es ',
-                    postal_code: '2054',
+                    adressLine: 'Cite Cdt Chrif Yahia. Rue 83 N°54 Es ',
+                    postalCode: '2054',
                     city: 'Alger',
                     country: 'Algeria'
                 },
-                phone_number: '+213-696-00-40-35',
+                phoneNumber: '+213-696-00-40-35',
                 email: 'tounsi.moh@hotmail.fr',
                 nationality: 'Algérienne',
                 birthdate: '23/05/1986',
-                image_url: 'https://via.placeholder.com/150'
+                imageUrl: 'https://via.placeholder.com/150'
             },
             summary: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqum .Duis aute irure dolor in reprehenderit in .Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqum .Duis aute irure dolor in reprehenderit in ',
 

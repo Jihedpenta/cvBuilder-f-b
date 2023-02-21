@@ -1,4 +1,4 @@
-import { Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
 import React, { useRef } from 'react';
 import { useState } from 'react';
 import useResume from '../../../hooks/useResume';
@@ -6,38 +6,55 @@ import FormCard from '../form-card/form-card.component';
 
 
 const ResumeTypeForm = () => {
-    const { industry, setIndustry, language, setLanguage, pentaContact, setPentaContact } = useResume()
+    const {  setIndustry,  setLanguage,  setPentaContact } = useResume()
     const langRef = useRef(null)
     const industryRef = useRef(null)
     const nameRef = useRef(null)
     const numberRef = useRef(null)
     const emailRef = useRef(null)
-    const [errors, setErrors] = useState({something: true, somehing2: true})
+    const [errors, setErrors] = useState({ something: true, somehing2: true })
+    const [requiredErrMsg, setRequiredErrMsg] = useState('')
+    const [emailErrMsg, setEmailErrMsg] = useState('')
     const handleSave = () => {
+        console.log('handle save form');
+        // setValidForm(false)
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
         const lang = langRef.current.value;
-        const industry = industryRef.current.value;
+        const indus = industryRef.current.value;
         const name = nameRef.current.value;
         const number = numberRef.current.value;
         const email = emailRef.current.value;
-
         setErrors({
-            industry : industry === '' ?   true : false,
+            industry: indus === '' ? true : false,
             lang: lang === '' ? true : false,
-            name : name === '' ? true : false,
-            number : number === '' ? true : false,
-            email: email === '' || emailRegex.test(email) ? true : false
+            name: name === '' ? true : false,
+            number: number === '' ? true : false,
+            email: email === '' || !emailRegex.test(email) ? true : false
         });
-
-
+        setRequiredErrMsg(indus === '' || lang === '' || name === '' || number === '' || email === '' ? 'All fields are required' : '')
+        setEmailErrMsg(emailRegex.test(email) || email === '' ? '' : 'Please enter a valid email')
+        if(!(indus === '' || lang === '' || name === '' || number === '' || email === '' || !emailRegex.test(email))){
+            setIndustry(industryRef.current.value)
+            setLanguage(langRef.current.value)
+            setPentaContact({name: nameRef.current.value, email:emailRef.current.value, number:numberRef.current.value})
+        }
 
 
     }
 
+
+    // useEffect(()=>{
+    //     console.log('valid form changed');
+    //     if (validForm){
+    
+    //     }
+    // },[validForm])
+
+
     return (
         <FormCard title='Resume Type'>
             <Grid container spacing={2}>
+            
                 <Grid item xs={12}
                     sm={6}
                     md={6}
@@ -80,6 +97,13 @@ const ResumeTypeForm = () => {
                     </FormControl>
                 </Grid>
                 <Grid item xs={12}
+                    sm={12}
+                    md={12}>
+                    <Typography variant='h6'>
+                        Pentabell Contact
+                    </Typography>
+                </Grid>
+                <Grid item xs={12}
                     sm={4}
                     md={4}>
                     <TextField
@@ -117,6 +141,28 @@ const ResumeTypeForm = () => {
                         sx={{ width: '100%' }}
                     />
                 </Grid>
+                {
+                    requiredErrMsg !== ''
+                &&
+                    <Grid item xs={12}
+                        sm={12}
+                        md={12}>
+                        <Typography variant='body' color='red'>
+                            {requiredErrMsg}
+                        </Typography>
+                    </Grid>
+                }
+                {
+                    emailErrMsg !== ''
+                &&
+                    <Grid item xs={12}
+                        sm={12}
+                        md={12}>
+                        <Typography variant='body' color='red'>
+                            {emailErrMsg}
+                        </Typography>
+                    </Grid>
+                }
                 <Grid item xs={12}
                     sm={12}
                     md={12}>

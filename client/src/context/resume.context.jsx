@@ -19,7 +19,7 @@ export const ResumeContext = createContext({
 })
 
 export const ResumeProvider = ({children})=>{
-    const [resumeContent,setResumeContent]= useState(RESUME_CONTENT);
+    const [resumeContent,setResumeContent]= useState(RESUME_CONTENT.data);
     const [pagesContent,setPagesContent]= useState([{}]);
     const [pagesHeight,setPagesHeight]= useState([]);
     const [contentToFill,setContentToFill]= useState(RESUME_CONTENT.data);

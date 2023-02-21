@@ -32,7 +32,6 @@ const ResumeFillInForm = () => {
         setNavWidth(width);
 
         // Do something with the new width and height
-        console.log(width, height);
       }
     });
 

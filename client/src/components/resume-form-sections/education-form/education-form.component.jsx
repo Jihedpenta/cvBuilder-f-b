@@ -1,39 +1,89 @@
-import { Button, Grid, IconButton,  TextField, Typography } from '@mui/material';
+import { Button, Grid, IconButton, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import FormCard from '../form-card/form-card.component';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import { useRef } from 'react';
+import useResume from '../../../hooks/useResume';
 
 const EducationForm = () => {
-    const [selectedDate, setSelectedDate] = React.useState(new Date());
+    const startRef = useRef(null)
+    const endRef = useRef(null)
+    const uniRef = useRef(null)
+    const diploRef = useRef(null)
+    const descriptionRef = useRef(null)
+    const btnRef = useRef(null)
+    const idRef = useRef(null)
+    const { resumeContent, setResumeContent } = useResume()
+    const [errors, setErrors] = useState({})
+    const [requiredErrMsg, setRequiredErrMsg] = useState('')
+    const [educations, setEducations] = useState([])
+    const handleAddNew = () => {
 
-    const handleDateChange = date => {
-      setSelectedDate(date);
-    };
-    const [educations, setEducations] = useState([
-        {
-            id: 0,
-            startDate: 'July 1996',
-            endDate: 'September 1998',
-            university: 'IPER (Groupe ESC Normandie) – Le Havre. Spécialisation : logistique et organisation des transports.',
-            diploma: '3ème cycle en Transport / Export / Logistique.'
-        },
-        {
-            id: 1,
-            startDate: '1994',
-            endDate: '1996',
-            university: 'Université Pierre et Marie Curie – Paris.',
-            diploma: 'Maîtrise de Physique'
+        const startDate = startRef.current.value
+        const endDate = endRef.current.value
+        const university = uniRef.current.value
+        const diploma = diploRef.current.value
+
+        setErrors({
+            startDate: startDate === '' ? true : false,
+            endDate: endDate === '' ? true : false,
+            university: university === '' ? true : false,
+            diploma: diploma === '' ? true : false
+        });
+
+        if (startDate !== '' && endDate !== '' && university !== '' && diploma !== '') {
+            setRequiredErrMsg('')
+            
+            const newEducation = {
+                startDate: startRef.current.value,
+                endDate: endRef.current.value,
+                university: uniRef.current.value,
+                diploma: diploRef.current.value
+            }
+            if (idRef.current?.value) {
+                console.log('there is a value ', idRef.current.value);
+                const index = idRef.current.value
+                educations[index] = newEducation
+                const newEducations = [...educations]
+                setEducations(newEducations)
+                idRef.current.value = null
+                btnRef.current.innerText = 'Add New'
+
+            } else {
+                const newEducations = [...educations, newEducation]
+                setEducations(newEducations)
+            }
+            startRef.current.value = null
+            endRef.current.value = null
+            uniRef.current.value = null
+            diploRef.current.value = null
+
+        } else {
+            setRequiredErrMsg('All fields are required')
         }
-        ,
-        {
-            id: 2,
-            startDate: '1994',
-            endDate: '1996',
-            university: 'Université Pierre et Marie Curie – Paris.',
-            diploma: 'Maîtrise de Physique'
-        }
-    ])
+    }
+    const handleDelete = (index) => {
+        const newEducations = [...educations]
+        newEducations.splice(index, 1)
+        setEducations(newEducations)
+        console.log('clicked ', newEducations);
+    }
+    const handleEdit = (index) => {
+        startRef.current.value = educations[index].startDate
+        endRef.current.value = educations[index].endDate
+        uniRef.current.value = educations[index].university
+        diploRef.current.value = educations[index].diploma
+        btnRef.current.innerText = 'Save'
+        idRef.current.value = index
+    }
+    const handleSave = ()=>{
+        console.log('handeling save');
+        const newResumeData = {...resumeContent, educations}
+        setResumeContent(newResumeData)
+        console.log(resumeContent);
+    }
+
     return (
         <FormCard title='Education'>
             <Grid container>
@@ -60,12 +110,12 @@ const EducationForm = () => {
                                     </Typography>
                                 </Grid>
                                 <Grid item md={1}>
-                                    <IconButton color="danger" aria-label="Delete" component="label">
+                                    <IconButton color="danger" aria-label="Delete" component="label" onClick={() => handleDelete(index)}>
                                         <DeleteIcon />
                                     </IconButton>
                                 </Grid>
                                 <Grid item md={1}>
-                                    <IconButton color="danger" aria-label="Delete" component="label">
+                                    <IconButton color="danger" aria-label="Delete" component="label" onClick={() => handleEdit(index)}>
                                         <EditIcon />
                                     </IconButton>
                                 </Grid>
@@ -76,37 +126,36 @@ const EducationForm = () => {
                 })}
             </Grid>
             <Grid container spacing={2} mt={2}>
+
                 <Grid item xs={12}
                     sm={6}
-                    md={6}
-                >
-                <TextField
-                id="date"
-                label="Start Date"
-                type="date"
-                sx={{ width: '100%' }}
-                defaultValue={selectedDate}
-                onChange={(e) => setSelectedDate(e.target.value)}
-                InputLabelProps={{
-                    shrink: true,
-                }}
-            />
+                    md={6}>
+                    <TextField
+                        required
+                        label="Start Date"
+                        sx={{ width: '100%' }}
+                        inputRef={startRef}
+                        error={errors.startDate}
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+
+                    />
                 </Grid>
 
                 <Grid item xs={12}
                     sm={6}
                     md={6}>
                     <TextField
-                    id="date"
-                    label="End Date"
-                    type="date"
-                    sx={{ width: '100%' }}
-                    defaultValue={selectedDate}
-                    onChange={(e) => setSelectedDate(e.target.value)}
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
-                />
+                        required
+                        label="End Date"
+                        sx={{ width: '100%' }}
+                        inputRef={endRef}
+                        error={errors.endDate}
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                    />
                 </Grid>
 
                 <Grid item xs={12}
@@ -116,6 +165,11 @@ const EducationForm = () => {
                         required
                         label="Diploma"
                         sx={{ width: '100%' }}
+                        inputRef={diploRef}
+                        error={errors.diploma}
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
                     />
                 </Grid>
 
@@ -126,13 +180,41 @@ const EducationForm = () => {
                         required
                         label="University"
                         sx={{ width: '100%' }}
+                        inputRef={uniRef}
+                        error={errors.university}
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
                     />
                 </Grid>
+                <input type="hidden" ref={idRef} />
+                {requiredErrMsg !== '' &&
+                    <Grid item xs={12}
+                        sm={12}
+                        md={12}>
+                        <Typography variant='body1' color='red'>{requiredErrMsg}</Typography>
+                    </Grid>}
                 <Grid item xs={12}
                     sm={12}
-                    md={12}>
-                    <Button>Add New</Button>
+                    md={12}
+                    sx={{
+                        display:'flex',
+                        justifyContent:'center',
+
+                    }}
+                    >
+                    <Button onClick={handleAddNew} ref={btnRef} variant="outlined">Add New</Button>
                 </Grid>
+
+
+                {educations.length > 0 &&
+                    <Grid item xs={12}
+                        sm={12}
+                        md={12}
+                    >
+                        <Button onClick={handleSave}>Save</Button>
+                    </Grid>
+                }
             </Grid>
         </FormCard>
     );

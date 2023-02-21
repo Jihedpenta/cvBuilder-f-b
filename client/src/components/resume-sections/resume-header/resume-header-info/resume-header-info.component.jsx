@@ -12,7 +12,7 @@ const ResumeHeaderInfo = ({ headerData, primaryColor  }) => {
                             paddingRight: '1.875rem'
                         }}
                     >
-                        {headerData.phone_number}
+                        {headerData.phoneNumber}
                     </Typography>
                 </Grid>
                 <Grid item xs={4} sm={4} md={4} lg={4}>

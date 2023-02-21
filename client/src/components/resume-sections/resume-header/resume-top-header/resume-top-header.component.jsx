@@ -3,7 +3,7 @@ import {  Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import ResumeDevider from '../../resume-devider/resume-devider.component';
 
-const ResumeTopHeader = ({ headerData, primaryColor, logo_link }) => {
+const ResumeTopHeader = ({ headerData, primaryColor, logoLink }) => {
     return (
         <Grid container>
                 <Grid item xs={3} sm={3} md={3}>
@@ -11,8 +11,8 @@ const ResumeTopHeader = ({ headerData, primaryColor, logo_link }) => {
                         height: '100%'
                     }}>
                         <img
-                            src={headerData.image_url}
-                            alt={headerData.full_name}
+                            src={headerData.imageUrl}
+                            alt={headerData.fullName}
                             width='100'
                             // loading="lazy"
 
@@ -24,18 +24,18 @@ const ResumeTopHeader = ({ headerData, primaryColor, logo_link }) => {
                     <Typography variant='h4' sx={{
                         color: primaryColor
                     }}>
-                        {headerData.full_name}
+                        {headerData.fullName}
                     </Typography>
                     <Typography variant='h6' sx={{
                         color: primaryColor
                     }}>
-                        {headerData.job_title}
+                        {headerData.jobTitle}
                     </Typography>
                     <Typography sx={{
                         // fontSize:'0.75rem',
                         display: 'block'
                     }}>
-                        {headerData.adress.adress_line}
+                        {headerData.adress.adressLine}
                     </Typography>
 
                     <Typography sx={{
@@ -43,7 +43,7 @@ const ResumeTopHeader = ({ headerData, primaryColor, logo_link }) => {
                         display: 'block'
 
                     }}>
-                        {headerData.adress.postal_code}, {headerData.adress.city},  {headerData.adress.country}
+                        {headerData.adress.postalCode}, {headerData.adress.city},  {headerData.adress.country}
                     </Typography>
                 </Grid>
 
@@ -54,7 +54,7 @@ const ResumeTopHeader = ({ headerData, primaryColor, logo_link }) => {
                         paddingRight:'20px'
                     }}>
                         <img
-                            src={logo_link}
+                            src={logoLink}
                             alt='Pentabell Logo'
                             width='70'
                             height='auto'

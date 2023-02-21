@@ -17,6 +17,7 @@ root.render(
   // <React.StrictMode>
   <BrowserRouter>
     <QueryClientProvider client={queryClient}>
+    
       <AuthProvider>
         <ResumeProvider>
           <Routes>
