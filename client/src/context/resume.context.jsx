@@ -19,10 +19,10 @@ export const ResumeContext = createContext({
 })
 
 export const ResumeProvider = ({children})=>{
-    const [resumeContent,setResumeContent]= useState({});
+    const [resumeContent,setResumeContent]= useState(RESUME_CONTENT.data);
     const [pagesContent,setPagesContent]= useState([{}]);
     const [pagesHeight,setPagesHeight]= useState([]);
-    const [contentToFill,setContentToFill]= useState();
+    const [contentToFill,setContentToFill]= useState({});
     const [industry,setIndustry]= useState(RESUME_CONTENT.industry);
     const [language,setLanguage]= useState(RESUME_CONTENT.lang);
     const [pentaContact,setPentaContact]= useState(RESUME_CONTENT.penta_contact);

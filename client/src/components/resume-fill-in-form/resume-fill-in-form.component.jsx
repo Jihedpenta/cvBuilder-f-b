@@ -71,10 +71,11 @@ const ResumeFillInForm = () => {
         <ProjectsForm />
         <SkillsForm />
         <ToolsForm />
-        <LanguagesForm />
+        <LanguagesForm  />
 
         <div  style={{
           width: navWidth
+
         }}>
           <ResumeFormBar />
 
