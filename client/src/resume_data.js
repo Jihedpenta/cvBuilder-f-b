@@ -1,7 +1,7 @@
 export const RESUME_CONTENT = {
     industry: 'oilgas',
     lang: 'en',
-    penta_contact: {
+    pentaContact: {
         name: 'Zakya Afkir',
         email: 'zakya.afquir@pentabell.fr',
         number: '+212 446 905 490'
