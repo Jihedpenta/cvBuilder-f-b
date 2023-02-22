@@ -187,7 +187,7 @@ const ExperienceForm = () => {
                     label="Job Title"
                     sx={{ width: '100%' }}
                     inputRef={jobRef}
-                    error={errors.job}
+                    error={errors.jobTitle}
                     InputLabelProps={{
                         shrink: true,
                     }}
