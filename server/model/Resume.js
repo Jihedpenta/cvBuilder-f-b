@@ -9,8 +9,23 @@ const resumeSchema = new Schema({
     email: String,
     number: String,
   },
-  data:{
-    
+  data: {
+    header: {
+      firstName: String,
+      lastName: String,
+      jobTitle: String,
+      adress: {
+        adressLine: String,
+        postalCode: String,
+        city: String,
+        country: String
+      },
+      phoneNumber: String,
+      email: String,
+      nationality: String,
+      birthdate: String,
+      imageUrl: String
+    }
   }
 });
 

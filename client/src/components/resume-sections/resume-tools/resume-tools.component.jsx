@@ -10,7 +10,9 @@ const ResumeTools = ({ tools, primaryColor, innerRef }) => {
 
             {tools.map((elem, index) => {
                 return (
-                    <Grid item xs={4} sm={4} md={4} key={index}>
+                    <Grid item xs={4} sm={4} md={4} key={index} sx={{
+                        marginBottom:'10px'
+                    }}>
                         &#9874; {elem}
                     </Grid>
                 )

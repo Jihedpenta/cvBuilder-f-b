@@ -12,37 +12,68 @@ import PersistLogin from './components/auth/persist-login/persist-login.componen
 import Layout from "./components/layout/layout.component";
 
 import { adminNavItems, userNavItems } from './utils/nav-items'
+// import ResumePage from "./components/resume-page/resume-page.component";
+import ResumeSave from "./pages/resume-save/resume-save.component";
+import { createTheme, CssBaseline, responsiveFontSizes, ThemeProvider } from "@mui/material";
+import Pentabell from './fonts/Pentabell-Regular.ttf';
 
 function App() {
-
+  let theme = createTheme({
+    typography: {
+      fontFamily: 'Pentabell',
+    },
+    components: {
+      MuiCssBaseline: {
+        styleOverrides: `
+          @font-face {
+            font-family: 'Pentabell';
+            src: local('Pentabell'), url(${Pentabell});
+          }
+        `,
+      },
+    },
+    palette: {
+      primary: {
+        main: '#245097',
+      },
+    },
+  });
+  theme = responsiveFontSizes(theme);
   return (
-    <Routes>
 
-      <Route path="/sign-in" element={<SignIn />} />
-      <Route element={<PersistLogin />}>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Routes>
 
-        <Route index element={<RedirectionAuthBased />} />
+        <Route path="/sign-in" element={<SignIn />} />
+        <Route element={<PersistLogin />}>
 
-        <Route element={<RequireAuth allowedRoles={[ROLES_LIST.User]} />}>
+          <Route index element={<RedirectionAuthBased />} />
 
-          <Route element={<Layout menuItems={userNavItems} />}>
-            <Route path="/resume-listing" element={<ResumeListing />} />
-            <Route path="/new-resume" element={<ResumeConstruction />} />
-          </Route>
-        </Route>
+          <Route element={<RequireAuth allowedRoles={[ROLES_LIST.User]} />}>
 
-        <Route element={<RequireAuth allowedRoles={[ROLES_LIST.Admin]} />}>
-        <Route element={<Layout menuItems={adminNavItems} />}>
+            <Route element={<Layout menuItems={userNavItems} />}>
+              <Route path="/resume-listing" element={<ResumeListing />} />
+              <Route path="/new-resume" element={<ResumeConstruction />} />
+              <Route path="/resume" element={<ResumeSave />} />
 
-          <Route path="/user-management" element={<UserManagement />} />
-          <Route path="/admin-resume-listing" element={<ResumeListing />} />
-
+            </Route>
           </Route>
 
-        </Route>
+          <Route element={<RequireAuth allowedRoles={[ROLES_LIST.Admin]} />}>
+            <Route element={<Layout menuItems={adminNavItems} />}>
 
-      </Route>
-    </Routes>
+              <Route path="/user-management" element={<UserManagement />} />
+              <Route path="/admin-resume-listing" element={<ResumeListing />} />
+              <Route path="/resume" element={<ResumeSave />} />
+
+            </Route>
+
+          </Route>
+
+        </Route>
+      </Routes>
+    </ThemeProvider>
   );
 }
 

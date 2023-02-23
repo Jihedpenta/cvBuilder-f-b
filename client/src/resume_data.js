@@ -9,7 +9,9 @@ export const RESUME_CONTENT = {
     data: 
         {
             header: {
-                fullName: 'Yahya Baghdadi',
+                firstName: 'Yahya',
+                lastName: 'Baghdadi',
+
                 jobTitle: '5G engeneer',
                 adress: {
                     adressLine: 'Cite Cdt Chrif Yahia. Rue 83 N°54 Es ',
@@ -20,8 +22,8 @@ export const RESUME_CONTENT = {
                 phoneNumber: '+213-696-00-40-35',
                 email: 'tounsi.moh@hotmail.fr',
                 nationality: 'Algérienne',
-                birthdate: '23/05/1986',
-                imageUrl: 'https://via.placeholder.com/150'
+                // birthdate: '23/05/1986',
+                imageUrl: 'http://localhost:3500/img/img1.jpg'
             },
             summary: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqum .Duis aute irure dolor in reprehenderit in .Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqum .Duis aute irure dolor in reprehenderit in ',
 
@@ -44,26 +46,7 @@ export const RESUME_CONTENT = {
                         endDate: '1996',
                         university: 'Université Pierre et Marie Curie – Paris.',
                         diploma: 'Maîtrise de Physique'
-                    },
-                    {
-                        startDate: 'July 1996',
-                        endDate: 'September 1998',
-                        university: 'IPER (Groupe ESC Normandie) – Le Havre. Spécialisation : logistique et organisation des transports.',
-                        diploma: '3ème cycle en Transport / Export / Logistique.'
-                    },
-                    {
-                        startDate: '1994',
-                        endDate: '1996',
-                        university: 'Université Pierre et Marie Curie – Paris.',
-                        diploma: 'Maîtrise de Physique'
                     }
-                    ,
-                    {
-                        startDate: '1994',
-                        endDate: '1996',
-                        university: 'Université Pierre et Marie Curie – Paris.',
-                        diploma: 'Maîtrise de Physique'
-                    },
                     
                 ]
             ,
@@ -87,12 +70,8 @@ export const RESUME_CONTENT = {
                         date: 'Jun 2015',
                         title: 'Formation SAP',
                         subtitle: 'AC040 (module CO).'
-                    },
-                    {
-                        date: 'Jun 2017',
-                        title: 'Formation SAP',
-                        subtitle: 'SCM630 (module WM) et SCM660 (module HUM).'
                     }
+
                 ]
             ,
             experiences:  [

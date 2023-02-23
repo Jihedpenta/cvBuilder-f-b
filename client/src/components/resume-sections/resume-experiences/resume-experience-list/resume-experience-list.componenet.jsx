@@ -11,7 +11,9 @@ const ResumeExperienceList = ({ experiences, primaryColor, innerRef }) => {
 
             {experiences['data'].map((elem, index) => {
                 return (
-                    <Grid item xs={12} sm={12} md={12} key={index}>
+                    <Grid item xs={12} sm={12} md={12} key={index} sx={{
+                        marginBottom:'10px'
+                    }}>
                         <ResumeSingleExperience experience={elem} />
                     </Grid>
                 )

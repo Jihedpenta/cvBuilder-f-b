@@ -11,7 +11,6 @@ const EducationForm = () => {
     const endRef = useRef(null)
     const uniRef = useRef(null)
     const diploRef = useRef(null)
-    const descriptionRef = useRef(null)
     const btnRef = useRef(null)
     const idRef = useRef(null)
     const { resumeContent, setResumeContent } = useResume()

@@ -9,7 +9,9 @@ const GeneralInfoForm = () => {
 
 const { resumeContent,setResumeContent} = useResume()
     
-    const nameRef = useRef(null)
+    const firstNameRef = useRef(null)
+    const lastNameRef = useRef(null)
+
     const jobRef = useRef(null)
     const phoneRef = useRef(null)
     const emailRef = useRef(null)
@@ -32,27 +34,32 @@ const { resumeContent,setResumeContent} = useResume()
     const handleSave = ()=>{
         setValidForm(false)
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        const name = nameRef.current.value;
+        const firstName = firstNameRef.current.value;
+        const lastName = lastNameRef.current.value;
+
         const job = jobRef.current.value;
         const email = emailRef.current.value;
         const phone = phoneRef.current.value;
         const nationality = nationRef.current.value;
         // console.log(name,job,email,phone,nationality);
         setErrors({
-            name: name === '' ? true : false,
+            firstName: firstName === '' ? true : false,
+            lastName: lastName === '' ? true : false,
+
             job: job === '' ? true : false,
             phone: phone === '' ? true : false,
             nationality: nationality === '' ? true : false,
             email: email === '' || !emailRegex.test(email) ? true : false
         });
 
-        setRequiredErrMsg(name === '' || job === '' || phone === '' || nationality === '' || email === '' ? 'Please fill in required fields' : '')
+        setRequiredErrMsg(firstName === '' ||lastName === '' || job === '' || phone === '' || nationality === '' || email === '' ? 'Please fill in required fields' : '')
         setEmailErrMsg(emailRegex.test(email) || email === '' ? '' : 'Please enter a valid email')
-        if(!(name === '' || job === '' || phone === '' || nationality === '' || email === '' || !emailRegex.test(email))){
-            const imgUrl = selectedFile ?  URL.createObjectURL(selectedFile) : undefined;
+        if(!(firstName === '' ||lastName === ''  || job === '' || phone === '' || nationality === '' || email === '' || !emailRegex.test(email))){
+            const imgUrl = selectedFile ?  URL.createObjectURL(selectedFile) : '';
             const header = {
-                fullName: nameRef.current.value ,
-                jobTitle: jobRef.current.value ,
+                firstName: firstName ,
+                lastName: lastName ,
+                jobTitle: job,
                 adress: {
                     adressLine: adressRef.current.value ,
                     postalCode: postalRef.current.value ,
@@ -80,23 +87,36 @@ const { resumeContent,setResumeContent} = useResume()
         <FormCard title='General Information'>
             <Grid container spacing={2}>
                 <Grid item xs={12}
-                    sm={6}
-                    md={6}
+                    sm={4}
+                    md={4}
                 >
 
                     <TextField
                         required
-                        label="Full Name"
+                        label="First Name"
                         sx={{ width: '100%' }}
-                        inputRef={nameRef}
-                        error={errors.name}
+                        inputRef={firstNameRef}
+                        error={errors.firstName}
 
                     />
                 </Grid>
-
                 <Grid item xs={12}
-                    sm={6}
-                    md={6}>
+                sm={4}
+                md={4}
+            >
+
+                <TextField
+                    required
+                    label="Last Name"
+                    sx={{ width: '100%' }}
+                    inputRef={lastNameRef}
+                    error={errors.lastName}
+
+                />
+            </Grid>
+                <Grid item xs={12}
+                    sm={4}
+                    md={4}>
                     <TextField
                         required
                         label="Job Title"
@@ -225,7 +245,8 @@ const { resumeContent,setResumeContent} = useResume()
                         label="Country"
                         sx={{ width: '100%' }}
                         inputRef={countryRef}
-
+                        required
+                        error={errors.country}
                     />
 
                 </Grid>
@@ -236,7 +257,8 @@ const { resumeContent,setResumeContent} = useResume()
                         label="City"
                         sx={{ width: '100%' }}
                         inputRef={cityRef}
-
+                        required
+                        error={errors.city}
                     />
 
                 </Grid>

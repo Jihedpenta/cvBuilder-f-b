@@ -5,8 +5,9 @@ import './resume-preview.style.scss'
 import useResume from '../../hooks/useResume';
 import i18n from 'i18next';
 
+
 const ResumePreview = () => {
-  const {pagesContent, industry,pentaContact,language, resumeContent, setContentToFill, setPagesContent }=useResume();
+  const { pagesContent, industry, pentaContact, language, resumeContent, setContentToFill, setPagesContent } = useResume();
   useEffect(() => {
     setContentToFill(resumeContent)
     setPagesContent([{}])
@@ -15,6 +16,7 @@ const ResumePreview = () => {
 
 
   }, [resumeContent, language, industry, pentaContact])
+
 
 
 
@@ -30,14 +32,16 @@ const ResumePreview = () => {
     >
 
       {
-       pagesContent
-        .map((elem, index ) => {        
-          return (
-            <ResumePage key={index} industry={industry} pentaContact={pentaContact} content={elem} index={index}/>
-          )
+        pagesContent
+          .map((elem, index) => {
+            const pageId = 'resume-page-' + index
+            return (
+              <ResumePage key={index} industry={industry} pentaContact={pentaContact} content={elem} index={index} id={pageId} />
+            )
 
-        })
+          })
       }
+
 
     </Grid>
   );

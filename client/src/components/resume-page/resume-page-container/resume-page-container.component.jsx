@@ -5,7 +5,7 @@ import useResume from '../../../hooks/useResume';
 import ResumeFooter from '../../resume-sections/resume-footer/resume-footer.component';
 import './resume-page.style-container.scss';
 
-const ResumePageContainer = ({ children, primaryColor, pentaContact, innerRef, index }) => {
+const ResumePageContainer = ({ children, primaryColor, pentaContact, innerRef, index, id }) => {
     const {pagesHeight, setPagesHeight} = useResume()
 
     // const ref = useRef(null);
@@ -53,7 +53,7 @@ const ResumePageContainer = ({ children, primaryColor, pentaContact, innerRef, i
         // console.log('current page height from container', pagesHeight)
     },[pagesHeight])
 
-
+    // console.log('the id is ', id);
 
     return (
         <Grid item
@@ -62,6 +62,13 @@ const ResumePageContainer = ({ children, primaryColor, pentaContact, innerRef, i
             className="single-resume-page"
             square
             ref={innerRef}
+            id={id}
+            sx={{
+                // boxSizing:'border-box',
+                width: '210mm',
+                // height: '297mm',
+                
+            }}
         >
             <Box
                 className='resume-page'
@@ -69,15 +76,21 @@ const ResumePageContainer = ({ children, primaryColor, pentaContact, innerRef, i
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    width: '100%',
-                    height: height,
-                    padding: '10px 80px'
+                    // width: '100%',
+                    // height: height,
+                    height: '277.8mm',
+                    width: '210mm',
+                    // margin: '1cm',
+                    padding: '1cm', 
+                    boxSizing:'border-box',
+                    backgroundColor:'white'
+
                 }}
             >
                 <h2 className='resume-page-background' style={{ color: primaryColor }}>Pentabell</h2>
                 {children}
             </Box>
-            <ResumeFooter primaryColor={primaryColor} pentaContact={pentaContact} footerHeight={footerHeight} />
+            <ResumeFooter primaryColor={primaryColor} pentaContact={pentaContact} footerHeight={'19mm'} />
         </Grid>
     );
 };
