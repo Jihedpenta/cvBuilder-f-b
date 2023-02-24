@@ -16,7 +16,8 @@ const ResumeTopHeader = ({ headerData, primaryColor, logoLink, anonymous }) => {
                             src={headerData.imageUrl}
                             // src={logoLink}
                             alt={headerData.fullName}
-                            width='100'
+                            width='120'
+                            height='120'
                             loading="lazy"
 
                         />

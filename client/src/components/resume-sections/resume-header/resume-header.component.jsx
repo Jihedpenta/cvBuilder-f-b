@@ -6,7 +6,7 @@ import ResumeTopHeader from './resume-top-header/resume-top-header.component';
 
 
 const ResumeHeader = ({ headerData, primaryColor, logoLink, innerRef, anonymous }) => {
-    console.log('anonymous, anonymous', anonymous);
+    // console.log('anonymous, anonymous', anonymous);
     return (
         // <div ref={innerRef}>
         <Grid container ref={innerRef}>

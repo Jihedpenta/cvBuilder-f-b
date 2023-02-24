@@ -55,6 +55,7 @@ const LoginForm = () => {
     {
       enabled:false,
       onSuccess: (data) => {
+        console.log(data);
         sessionStorage.setItem("sessionSigned",true)
         setAuth({ roles: data.roles, accessToken: data.accessToken })
         const home = data.roles.find(role => role === ROLES_LIST.Admin)

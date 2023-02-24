@@ -16,6 +16,7 @@ const PORT = process.env.PORT || 3500;
 // Connect to MongoDB
 connectDB();
 
+
 // custom middleware logger
 app.use(logger);
 
@@ -39,6 +40,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/public')));
 app.use(express.static(path.join(__dirname, '/build')));
 
+app.use(express.static(path.join(__dirname, '/uploads')));
 // routes
 app.use('/', require('./routes/root'));
 app.use('/auth', require('./routes/auth'));
@@ -50,6 +52,7 @@ app.use(verifyJWT);
 // app.use('/employees', require('./routes/api/employees'));
 app.use('/users', require('./routes/api/users'));
 app.use('/register', require('./routes/register'));
+app.use('/resumes', require('./routes/api/resumes'));
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));

@@ -70,19 +70,16 @@ const { resumeContent,setResumeContent} = useResume()
                 email: emailRef.current.value ,
                 nationality: nationRef.current.value ,
                 birthdate: birthRef.current.value ,
-                imageUrl: imgUrl 
+                imageUrl: imgUrl, 
+                imageFile: selectedFile
             }
-            const resumeData = JSON.parse(JSON.stringify({...resumeContent, header}))
+            const resumeData = {...resumeContent, header}
 
             setResumeContent(resumeData);
         }
     }
 
-    useEffect(()=>{
-        if (validForm){
-           
-        }
-    },[validForm])
+
     return (
         <FormCard title='General Information'>
             <Grid container spacing={2}>
@@ -197,7 +194,7 @@ const { resumeContent,setResumeContent} = useResume()
                     <input
                         id="contained-button-file"
                         type="file"
-                        accept="image/png, image/jpeg"
+                        accept="image/png, image/jpeg,  image/jpg,  image/gif"
                         onChange={(e) => setSelectedFile(e.target.files[0])}
                         style={{ display: 'none' }}
                         ref={imgRef}

@@ -12,37 +12,13 @@ import PersistLogin from './components/auth/persist-login/persist-login.componen
 import Layout from "./components/layout/layout.component";
 
 import { adminNavItems, userNavItems } from './utils/nav-items'
-// import ResumePage from "./components/resume-page/resume-page.component";
 import ResumeSave from "./pages/resume-save/resume-save.component";
-import { createTheme, CssBaseline, responsiveFontSizes, ThemeProvider } from "@mui/material";
-import Pentabell from './fonts/Pentabell-Regular.ttf';
 
 function App() {
-  let theme = createTheme({
-    typography: {
-      fontFamily: 'Pentabell',
-    },
-    components: {
-      MuiCssBaseline: {
-        styleOverrides: `
-          @font-face {
-            font-family: 'Pentabell';
-            src: local('Pentabell'), url(${Pentabell});
-          }
-        `,
-      },
-    },
-    palette: {
-      primary: {
-        main: '#245097',
-      },
-    },
-  });
-  theme = responsiveFontSizes(theme);
+
   return (
 
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
+
       <Routes>
 
         <Route path="/sign-in" element={<SignIn />} />
@@ -73,7 +49,7 @@ function App() {
 
         </Route>
       </Routes>
-    </ThemeProvider>
+
   );
 }
 

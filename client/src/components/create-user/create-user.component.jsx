@@ -19,14 +19,9 @@ export default function CreateUser() {
       email: data.get("email"),
       pwd: data.get("password"),
     };
-    console.log("body", body);
     mutateAsync(body, {
       onSuccess: (data) => {
-        console.log("succeeded /*******----************/", data);
         queryClient.invalidateQueries("users");
-      },
-      onError: (err) => {
-        console.log("error /*******----************/", err);
       },
     });
   };

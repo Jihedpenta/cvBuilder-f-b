@@ -22,7 +22,7 @@ export const RESUME_CONTENT = {
                 phoneNumber: '+213-696-00-40-35',
                 email: 'tounsi.moh@hotmail.fr',
                 nationality: 'Algérienne',
-                // birthdate: '23/05/1986',
+                birthdate: '23/05/1986',
                 imageUrl: 'http://localhost:3500/img/img1.jpg'
             },
             summary: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqum .Duis aute irure dolor in reprehenderit in .Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqum .Duis aute irure dolor in reprehenderit in ',
