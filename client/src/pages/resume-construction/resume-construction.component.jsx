@@ -8,8 +8,11 @@ import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import useResume from '../../hooks/useResume';
 import useCrudResume from '../../hooks/useCrudResume';
+import { useLocation } from "react-router-dom";
 
 export default function ResumeConstruction() {
+  const location = useLocation();
+
   const {
     setResumeContent,
     setIndustry,
@@ -42,7 +45,16 @@ export default function ResumeConstruction() {
       cleanState()
     }
   }, [])
-  
+
+  useEffect(() => {
+
+    if( location.pathname === '/resume-construction'){
+      
+      cleanState()
+    }
+    console.log("Location changed to: ", location.pathname);
+  }, [location]);
+
   let theme = createTheme({
     typography: {
       fontFamily: 'Pentabell',

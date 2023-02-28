@@ -3,7 +3,7 @@ import React from 'react';
 import SaveIcon from '@mui/icons-material/Save';
 import DownloadIcon from '@mui/icons-material/Download';
 import { Button } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useMutation, useQueryClient } from 'react-query';
 import useCrudResume from '../../../hooks/useCrudResume';
 import useResume from '../../../hooks/useResume';
