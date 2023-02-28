@@ -1,5 +1,4 @@
 import { createContext,  useState } from 'react';
-import { RESUME_CONTENT } from '../resume_data';
 
 export const ResumeContext = createContext({
     pagesContent :[],
@@ -19,14 +18,29 @@ export const ResumeContext = createContext({
 })
 
 export const ResumeProvider = ({children})=>{
-    const [resumeContent,setResumeContent]= useState(RESUME_CONTENT.data);
+    const [resumeContent,setResumeContent]= useState({});
     const [pagesContent,setPagesContent]= useState([{}]);
     const [pagesHeight,setPagesHeight]= useState([]);
     const [contentToFill,setContentToFill]= useState({});
-    const [industry,setIndustry]= useState(RESUME_CONTENT.industry);
-    const [language,setLanguage]= useState(RESUME_CONTENT.lang);
-    const [pentaContact,setPentaContact]= useState(RESUME_CONTENT.pentaContact);
-    const value = {pagesContent, setPagesContent, pagesHeight, setPagesHeight, resumeContent,setResumeContent,contentToFill,setContentToFill,industry,setIndustry, language,setLanguage,pentaContact,setPentaContact};
+    const [industry,setIndustry]= useState('');
+    const [language,setLanguage]= useState('');
+    const [pentaContact,setPentaContact]= useState({});
+    const value = {
+        pagesContent, 
+        setPagesContent, 
+        pagesHeight, 
+        setPagesHeight, 
+        resumeContent,
+        setResumeContent,
+        contentToFill,
+        setContentToFill,
+        industry,
+        setIndustry, 
+        language,
+        setLanguage,
+        pentaContact,
+        setPentaContact
+    };
     return (
         <ResumeContext.Provider value={value}>{children}</ResumeContext.Provider>
     );

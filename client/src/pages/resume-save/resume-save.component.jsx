@@ -2,19 +2,68 @@ import React, { useEffect } from 'react';
 import ResumePage from '../../components/resume-page/resume-page.component';
 import Grid from '@mui/material/Grid';
 import useResume from '../../hooks/useResume';
-import i18n from 'i18next';
 import { Button, createTheme, CssBaseline, responsiveFontSizes, ThemeProvider } from '@mui/material';
 import html2pdf from 'html2pdf.js';
 import Pentabell from '../../fonts/Pentabell-Regular.ttf';
+import useCrudResume from '../../hooks/useCrudResume';
+import { useParams } from 'react-router-dom';
 
 const ResumeSave = () => {
 
-    const { pagesContent, industry, pentaContact, language, resumeContent, setContentToFill, setPagesContent } = useResume();
+    const { 
+        pagesContent, 
+        industry, 
+        pentaContact, 
+        resumeContent, 
+        setResumeContent,
+        setIndustry,
+        setLanguage,
+        setPentaContact, 
+        setContentToFill,
+        setPagesContent
+    } = useResume();
+
+
+
+    const { getResumesById } = useCrudResume()
+    let { resumeId } = useParams();
+    const setResumeInAppContext = async (id) => {
+      const resume = await getResumesById(id)
+      console.log(resume);
+      setResumeContent(resume.data)
+      setIndustry(resume.industry)
+      setLanguage(resume.lang)
+      setPentaContact(resume.pentaContact)
+    }
+  
+    const cleanState = ()=>{
+        setResumeContent({});
+        setPagesContent([{}]);
+        setContentToFill({});
+        setIndustry('');
+        setIndustry('');
+        setPentaContact({});
+    }
+    useEffect(() => {
+      console.log(resumeId);
+      setResumeInAppContext(resumeId)
+
+      return cleanState()
+    }, [])
+
     useEffect(() => {
         setContentToFill(resumeContent)
         setPagesContent([{}])
-        i18n.changeLanguage(language);
-    }, [resumeContent, language, industry, pentaContact])
+      }, [resumeContent])
+    
+    // useEffect(() => {
+    // console.log('new resume content', resumeContent);
+    // console.log('contentToFill', contentToFill);
+
+    //     setContentToFill(resumeContent)
+    //     setPagesContent([{}])
+    //     i18n.changeLanguage(language);
+    // }, [resumeContent, language, industry, pentaContact])
 
     const handleDownloadPDF = () => { //handleDownloadAnonymPDF
         // console.log(resumeContent.h);

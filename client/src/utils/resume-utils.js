@@ -1,6 +1,7 @@
 export const addContentSlice = (pagesContentData,contentToFillData)=>{
     const pageCurrentContent = JSON.parse(JSON.stringify(pagesContentData));
     const contentToFill = JSON.parse(JSON.stringify(contentToFillData));
+
     //if content to fill contain header 
         //add header 
         //remove header from contentToFill 
@@ -13,6 +14,7 @@ export const addContentSlice = (pagesContentData,contentToFillData)=>{
         added = true;
 
     }
+
     //if content to fill contain summery 
         //add summery 
         //remove summery from contentToFill 
@@ -263,7 +265,6 @@ export const redoAndAppendToNewPage = (currentContent)=>{
         delete newCurrentPageContent.summary
         done = true
     }
-
     return [nextPageContent, newCurrentPageContent]
 
 }

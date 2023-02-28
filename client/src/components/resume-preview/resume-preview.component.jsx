@@ -11,13 +11,12 @@ const ResumePreview = () => {
   useEffect(() => {
     setContentToFill(resumeContent)
     setPagesContent([{}])
+  }, [resumeContent])
 
+
+  useEffect(() => {
     i18n.changeLanguage(language);
-
-
-  }, [resumeContent, language, industry, pentaContact])
-
-
+  }, [language])
 
 
   return (

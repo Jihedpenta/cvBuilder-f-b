@@ -1,53 +1,46 @@
-import { Button, Card, CardActions, CardContent, CardMedia, Grid, TextField, Typography } from '@mui/material';
+import { Button, Card, CardActions, CardContent,  Grid, TextField, Typography } from '@mui/material';
 import { Container } from '@mui/system';
 import React from 'react';
 import { useQuery } from 'react-query';
 import useAuth from '../../hooks/useAuth';
 import useCrudResume from '../../hooks/useCrudResume';
+import useResume from '../../hooks/useResume';
+
 import useGetUserId from '../../hooks/useGetUserId';
 import { ROLES_LIST } from '../../roles_list';
+import { useNavigate } from 'react-router-dom';
 
 const ResumeListingComponent = () => {
     const getUserId = useGetUserId()
-    const { getResumesByAuthorId, getAllResumes } = useCrudResume()
+    const { getResumesByAuthorId, getAllResumes, getResumesById } = useCrudResume()
     const userId = getUserId()
     const { auth } = useAuth()
-
+    const {setResumeContent, setContentToFill, setPagesContent} =useResume()
+    const navigate = useNavigate();
 
     const isAdmin = auth?.roles?.find(role => role === ROLES_LIST.Admin)
 
-    const { data, error, isLoading } = useQuery(
+    const resumesQuery = useQuery(
         'resumesForListing',
         () => {
             if (isAdmin) {
                 return getAllResumes()
             }
             return getResumesByAuthorId(userId);
-        },
-        {
-            onSuccess: (data) => {
-                console.log('fetching succeeded', data);
-            }
         }
     );
 
-    const setResumeInAppContext = (id) => {
-        // fetch resume by id 
-        // setResume in context
-        console.log(id);
-    }
-    const handleEdit = (id) => {
-        setResumeInAppContext(id)
+    const handleEdit = async (id) => {
+        navigate('/resume-construction/'+id)
         // redirect to edit path
     }
-    const handleDownloadPdf = (id) => {
-        setResumeInAppContext(id)
+    const handleDownloadPdf = async (id) => {
+        navigate('/resume/'+id)
         // redirect to save path 
     }
 
 
-    console.log('data, data', data);
-    if (isLoading) return (<h2>The page is loading</h2>)
+    if (resumesQuery.isLoading) return (<h2>The page is loading</h2>)
     return (
         <Container sx={{ py: 5, width: '100%' }} >
             <Card sx={{ padding: '50px', width: '100%' }} >
@@ -73,7 +66,7 @@ const ResumeListingComponent = () => {
 
                 {/* End hero unit */}
                 <Grid container spacing={4}>
-                    {data.map((resume) => {
+                    {resumesQuery.data.map((resume) => {
                         const candidateName = resume.data.header.firstName + ' ' + resume.data.header.lastName
                         const candidateJobTitle = resume.data.header.jobTitle
                         return (

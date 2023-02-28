@@ -21,7 +21,7 @@ export const userNavItems = [
     },
     {
       name:'New Resume',
-      path:'new-resume',
+      path:'resume-construction',
       icon: <AddCircleOutlineIcon/>
     }
   ]

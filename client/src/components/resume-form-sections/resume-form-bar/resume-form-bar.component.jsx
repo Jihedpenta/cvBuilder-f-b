@@ -3,11 +3,10 @@ import React from 'react';
 import SaveIcon from '@mui/icons-material/Save';
 import DownloadIcon from '@mui/icons-material/Download';
 import { Button } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useMutation, useQueryClient } from 'react-query';
 import useCrudResume from '../../../hooks/useCrudResume';
 import useResume from '../../../hooks/useResume';
-import useAuth from '../../../hooks/useAuth';
 import useGetUserId from '../../../hooks/useGetUserId';
 import objectToFormData from '../../../utils/object-to-formdata';
 
@@ -18,12 +17,9 @@ const ResumeFormBar = () => {
   const { mutateAsync } = useMutation(createResume);
   const {  industry, pentaContact, language, resumeContent } = useResume();
   const getUserId = useGetUserId()
+  const navitage = useNavigate()
   const saveResume = (event) => {
     const userId = getUserId()
-    console.log('auth', userId);
-
-    console.log(industry, pentaContact, language, resumeContent );
-    // const data = new FormData(event.currentTarget);
     const body = {
       industry: industry,
       lang: language,
@@ -31,19 +27,37 @@ const ResumeFormBar = () => {
       data: resumeContent,
       author: userId
     };
-
-    console.log(body.data.header.imageFile instanceof File)
+    console.log('body', body);
     const formData = objectToFormData(body);
-
     mutateAsync(formData, {
-      onSuccess: (data) => {
-        console.log('resume creation success');
 
-        console.log(data);
-        // queryClient.invalidateQueries("users");
+      onSuccess: (data) => {
+        queryClient.invalidateQueries("resumesForListing");
       },
     });
   };
+
+
+  const saveAndPrintResume = ()=>{
+    console.log('langeding click');
+    const userId = getUserId()
+    const body = {
+      industry: industry,
+      lang: language,
+      pentaContact: pentaContact,
+      data: resumeContent,
+      author: userId
+    };
+    const formData = objectToFormData(body);
+    mutateAsync(formData, {
+      onSuccess: (data) => {
+        console.log(data);
+        queryClient.invalidateQueries("resumesForListing");
+        navitage('/resume-construction')
+
+      },
+    });
+  }
   return (
 
     <div style={{
@@ -55,12 +69,10 @@ const ResumeFormBar = () => {
       display: 'flex',
       justifyContent: 'space-between'
     }}>
-      <Link to="/resume" component={Button} variant="outline"  style={{ textDecoration: 'none' }}>
-        <Button variant="outline" sx={{ color: 'white' }} >
+        <Button variant="outline" sx={{ color: 'white' }} onClick={saveAndPrintResume} >
           <DownloadIcon />
           Download PDF
         </Button>
-      </Link>
 
       <Button sx={{ color: 'white' }} onClick={saveResume}>
         <SaveIcon />

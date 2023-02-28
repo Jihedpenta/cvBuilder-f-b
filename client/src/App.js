@@ -30,9 +30,9 @@ function App() {
 
             <Route element={<Layout menuItems={userNavItems} />}>
               <Route path="/resume-listing" element={<ResumeListing />} />
-              <Route path="/new-resume" element={<ResumeConstruction />} />
-              <Route path="/resume" element={<ResumeSave />} />
-
+              <Route path="/resume-construction" element={<ResumeConstruction />} />
+              <Route path="/resume-construction/:resumeId" element={<ResumeConstruction />} />
+              <Route path="/resume/:resumeId" element={<ResumeSave />} />
             </Route>
           </Route>
 
@@ -41,7 +41,6 @@ function App() {
 
               <Route path="/user-management" element={<UserManagement />} />
               <Route path="/admin-resume-listing" element={<ResumeListing />} />
-              <Route path="/resume" element={<ResumeSave />} />
 
             </Route>
 

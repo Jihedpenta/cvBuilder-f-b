@@ -30,24 +30,23 @@ const createResume = async (req, res) => {
     upload(req, res, async (err) => {
         // console.log(req);
         if (!err) {
-
-            if (req.file?.filename){
-                console.log('there is a file');
-
-            }else{
-                console.log('there is no file');
-            }
-            const fileExt = path.extname(req.file.filename).toLowerCase();
-
             const { industry, data, lang, pentaContact, author } = req.body;
             const name = data.header.firstName + ' ' + data.header.lastName
-            data.header.imageUrl = req.file.filename
-            data.header.imageFile = {
-                data: fs.readFileSync("uploads/" + req.file.filename),
-                contentType: "image/" + fileExt.substring(1),
+            console.log(req.file);
+            if (req.file?.filename) {
+
+                const fileExt = path.extname(req.file.filename).toLowerCase();
+
+                data.header.imageUrl = req.file.filename
+                data.header.imageFile = {
+                    data: fs.readFileSync("uploads/" + req.file.filename),
+                    contentType: "image/" + fileExt.substring(1),
+                }
+
             }
 
-            const resume = new Resume({industry, data, lang, pentaContact, author })
+
+            const resume = new Resume({ industry, data, lang, pentaContact, author })
 
 
             resume.save()
@@ -75,7 +74,7 @@ const createResume = async (req, res) => {
                     res.status(500).json({ error: err });
                 });
 
-        }else{
+        } else {
             console.log(err)
         }
     })
@@ -92,18 +91,19 @@ const getResumesByUserId = async (req, res) => {
 
 }
 
-// const getUser = async (req, res) => {
+const getResumeById = async (req, res) => {
 
-//     if (!req?.params?.id) return res.status(400).json({ "message": 'User ID required' });
-//     const user = await User.findOne({ _id: req.params.id }).exec();
-//     if (!user) {
-//         return res.status(204).json({ 'message': `User ID ${req.params.id} not found` });
-//     }
-//     res.json(user);
-// }
+    if (!req?.params?.id) return res.status(400).json({ "message": 'Resume ID required' });
+    const resume = await Resume.findOne({ _id: req.params.id }).exec();
+    if (!resume) {
+        return res.status(204).json({ 'message': `Resume ID ${req.params.id} not found` });
+    }
+    res.json(resume);
+}
 
 module.exports = {
     getAllResumes,
     createResume,
-    getResumesByUserId
+    getResumesByUserId,
+    getResumeById
 }
