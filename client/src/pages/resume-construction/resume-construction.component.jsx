@@ -19,7 +19,8 @@ export default function ResumeConstruction() {
     setLanguage,
     setPentaContact, 
     setPagesContent,
-    setContentToFill
+    setContentToFill,
+    setResumeId
   } =useResume()
   const { getResumesById } = useCrudResume()
   let { resumeId } = useParams();
@@ -29,6 +30,7 @@ export default function ResumeConstruction() {
     setIndustry(resume.industry)
     setLanguage(resume.lang)
     setPentaContact(resume.pentaContact)
+    setResumeId(resume._id)
   }
   const cleanState = ()=>{
     setResumeContent({});
@@ -37,6 +39,8 @@ export default function ResumeConstruction() {
     setIndustry('');
     setIndustry('');
     setPentaContact({});
+    setResumeId('')
+
 }
   useEffect(() => {
     if(resumeId){
@@ -47,12 +51,9 @@ export default function ResumeConstruction() {
   }, [])
 
   useEffect(() => {
-
     if( location.pathname === '/resume-construction'){
-      
       cleanState()
     }
-    console.log("Location changed to: ", location.pathname);
   }, [location]);
 
   let theme = createTheme({

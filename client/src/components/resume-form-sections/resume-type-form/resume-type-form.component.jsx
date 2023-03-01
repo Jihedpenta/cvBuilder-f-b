@@ -1,12 +1,12 @@
 import { Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useState } from 'react';
 import useResume from '../../../hooks/useResume';
 import FormCard from '../form-card/form-card.component';
 
 
 const ResumeTypeForm = () => {
-    const {  setIndustry,  setLanguage,  setPentaContact } = useResume()
+    const {  setIndustry, industry, language, pentaContact , setLanguage,  setPentaContact } = useResume()
     const langRef = useRef(null)
     const industryRef = useRef(null)
     const nameRef = useRef(null)
@@ -15,7 +15,56 @@ const ResumeTypeForm = () => {
     const [errors, setErrors] = useState({ something: true, somehing2: true })
     const [requiredErrMsg, setRequiredErrMsg] = useState('')
     const [emailErrMsg, setEmailErrMsg] = useState('')
+
+    // useEffect(()=>{
+    //     // if (langRef.current) {
+    //         console.log('laang effect fired');
+    //         langRef.current.value = 'fr';
+    //         console.log(langRef.current.value);
+
+    //     // }
+    // },[] )
+
+
+    useEffect(()=>{
+        console.log(industry);
+        if (industry !== ''){
+            if (industryRef.current) {
+                industryRef.current.value = industry;
+
+                // industryRef.current.dispatchEvent(new Event('change', { bubbles: true }));
+
+            }
+        }else{
+            if (industryRef.current) {
+                industryRef.current.value = '';
+
+            }
+        }
+    }, [industry])
+    
+    useEffect(()=>{
+        if (language !== ''){
+            if (langRef.current) {
+                langRef.current.value = language;
+            }
+        }else{
+            if (langRef.current) {
+                langRef.current.value = '';
+            }
+        }
+    }, [language])
+
+    useEffect(()=>{
+        // if (language !== ''){
+        //     if (langRef.current) {
+        //         langRef.current.value = language;
+        //     }
+        // }
+    }, [pentaContact])
+
     const handleSave = () => {
+
         console.log('handle save form');
         // setValidForm(false)
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

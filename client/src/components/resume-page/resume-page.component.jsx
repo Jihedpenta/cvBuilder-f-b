@@ -62,15 +62,15 @@ const ResumePage = ({ content, industry, pentaContact, index, id, anonymous }) =
     return (
 
         <ResumePageContainer primaryColor={primaryColor} pentaContact={pentaContact} innerRef={containerRef} index={index} id={id}>
-            {content.header ? <ResumeHeader headerData={content.header} primaryColor={primaryColor} logoLink={logoLink} innerRef={headerRef} anonymous={anonymous} /> : <ResumeTopPage primaryColor={primaryColor} logoLink={logoLink} innerRef={topPageRef} />}
-            {content.summary && <ResumeSummery summary={content.summary} innerRef={summaryRef} />}
-            {content.educations && <ResumeEducationList educations={content.educations} primaryColor={primaryColor} innerRef={educationRef} />}
-            {content.certifications && <ResumeCertificationList certifications={content.certifications} primaryColor={primaryColor} innerRef={certifRef} />}
-            {content.experiences && <ResumeExperienceList experiences={content.experiences} primaryColor={primaryColor} innerRef={workExpRef} />}
-            {content.projects && <ResumeProjectsList projects={content.projects} primaryColor={primaryColor} innerRef={projectRef} />}
-            {content.skills && <ResumeSkills skills={content.skills} primaryColor={primaryColor} innerRef={skillRef} />}
-            {content.tools && <ResumeTools tools={content.tools} primaryColor={primaryColor} innerRef={toolRef} />}
-            {content.langs && <ResumeLangs langs={content.langs} primaryColor={primaryColor} innerRef={langRef} />}
+            {content.header && Object.keys(content.header).length>0 ? <ResumeHeader headerData={content.header} primaryColor={primaryColor} logoLink={logoLink} innerRef={headerRef} anonymous={anonymous} /> : <ResumeTopPage primaryColor={primaryColor} logoLink={logoLink} innerRef={topPageRef} />}
+            {content.summary && Object.keys(content.summary).length>0 && <ResumeSummery summary={content.summary} innerRef={summaryRef} />}
+            {content.educations && content.educations.data.length > 0 && <ResumeEducationList educations={content.educations} primaryColor={primaryColor} innerRef={educationRef} />}
+            {content.certifications && content.certifications.data.length > 0 && <ResumeCertificationList certifications={content.certifications} primaryColor={primaryColor} innerRef={certifRef} />}
+            {content.experiences && content.experiences.data.length > 0 && <ResumeExperienceList experiences={content.experiences} primaryColor={primaryColor} innerRef={workExpRef} />}
+            {content.projects  && content.projects.data.length > 0 && <ResumeProjectsList projects={content.projects} primaryColor={primaryColor} innerRef={projectRef} />}
+            {content.skills && content.skills.length > 0 && <ResumeSkills skills={content.skills} primaryColor={primaryColor} innerRef={skillRef} />}
+            {content.tools && content.tools.length > 0 && <ResumeTools tools={content.tools} primaryColor={primaryColor} innerRef={toolRef} />}
+            {content.langs && content.langs.length > 0 && <ResumeLangs langs={content.langs} primaryColor={primaryColor} innerRef={langRef} />}
         </ResumePageContainer>
 
     );

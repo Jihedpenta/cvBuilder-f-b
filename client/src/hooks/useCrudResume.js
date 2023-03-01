@@ -45,6 +45,24 @@ const useCrudResume = () => {
             throw Error(error)
         }
     }
-    return {createResume, getResumesByAuthorId, getAllResumes, getResumesById}
+
+
+    const updateResume = async (id, body) => {
+        console.log(id);
+        try {
+            const config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            };
+            const {data} = await axiosPrivate.put('/resumes/'+id, body, config);
+            // const {data} = await axiosPrivate.get('/resumes/'+id);
+            return data
+        } catch (error) {
+            console.log(error);
+            throw Error(error)
+        }
+    }
+    return {createResume, getResumesByAuthorId, getAllResumes, getResumesById, updateResume}
 }
 export default useCrudResume;

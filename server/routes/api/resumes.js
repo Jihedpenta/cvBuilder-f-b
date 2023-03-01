@@ -12,9 +12,10 @@ router.route('/:id')
 router.route('/author/:id')
     .get(resumesController.getResumesByUserId);
 
+router.route('/:id')
+    .put(resumesController.updateResume);    
 
-
-// router.route('/:id')
+// router.route('/:id') 
 //     .get(verifyRoles(ROLES_LIST.Admin), usersController.getUser);
 
 module.exports = router;
