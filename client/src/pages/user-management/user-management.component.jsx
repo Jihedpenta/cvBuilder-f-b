@@ -8,11 +8,12 @@ import CreateUser from "../../components/create-user/create-user.component";
 
 
 function DashboardContent() {
+  const [userToEdit, setUserToEdit] = React.useState('')
   return (
     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
       <Grid container spacing={3}>
         <Grid item xs={12} md={6} lg={7}>
-          <UserList />
+          <UserList setUserToEdit={setUserToEdit}/>
         </Grid>
         <Grid item xs={12} md={6} lg={5}>
           <Paper
@@ -22,7 +23,7 @@ function DashboardContent() {
               flexDirection: "column",
             }}
           >
-            <CreateUser />
+            <CreateUser userToEdit={userToEdit} setUserToEdit={setUserToEdit} />
           </Paper>
         </Grid>
       </Grid>

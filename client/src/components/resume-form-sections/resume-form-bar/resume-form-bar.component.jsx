@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import SaveIcon from "@mui/icons-material/Save";
 import DownloadIcon from "@mui/icons-material/Download";
@@ -17,7 +17,7 @@ const ResumeFormBar = () => {
   const { industry, pentaContact, language, resumeContent, setResumeId, resumeId } = useResume();
   const getUserId = useGetUserId();
   const navitage = useNavigate();
-
+  const [saved, setSaved] = useState(false)
   const saveResume = async (event) => {
     const userId = getUserId();
     const body = {
@@ -32,34 +32,18 @@ const ResumeFormBar = () => {
     const formData = objectToFormData(body);
 
 
-    if (resumeId === ''){
+    if (resumeId === '') {
       const response = await createResume(formData)
       setResumeId(response.resume._id)
       navitage("/resume-construction/" + response.resume._id);
-    }else{
-      const response = updateResume(resumeId,formData )
+    } else {
+      const response = updateResume(resumeId, formData)
     }
 
   };
 
   const saveAndPrintResume = () => {
-    console.log("langeding click");
-    const userId = getUserId();
-    const body = {
-      industry: industry,
-      lang: language,
-      pentaContact: pentaContact,
-      data: resumeContent,
-      author: userId,
-    };
-    const formData = objectToFormData(body);
-    mutateAsync(formData, {
-      onSuccess: (data) => {
-        console.log(data);
-        queryClient.invalidateQueries("resumesForListing");
-        navitage("/resume-construction");
-      },
-    });
+      
   };
   return (
     <div
@@ -77,6 +61,7 @@ const ResumeFormBar = () => {
         variant="outline"
         sx={{ color: "white" }}
         onClick={saveAndPrintResume}
+        disabled={!saved}
       >
         <DownloadIcon />
         Download PDF

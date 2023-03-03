@@ -17,9 +17,12 @@ import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import LastPageIcon from "@mui/icons-material/LastPage";
 import { TableHead, Typography } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
-import { useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import useGetUsers from "../../hooks/useGetUsers";
+import useCrudUser from "../../hooks/useCrudUser";
 
 function TablePaginationActions(props) {
   const theme = useTheme();
@@ -40,6 +43,7 @@ function TablePaginationActions(props) {
   const handleLastPageButtonClick = (event) => {
     onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
   };
+
 
   return (
     <Box sx={{ flexShrink: 0, ml: 2.5 }}>
@@ -90,21 +94,34 @@ TablePaginationActions.propTypes = {
   rowsPerPage: PropTypes.number.isRequired,
 };
 
-export default function UserList() {
+export default function UserList({ setUserToEdit }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const navigate = useNavigate();
   const location = useLocation();
   const getUsers = useGetUsers()
+  const {deleteUser} = useCrudUser();
+  const queryClient = useQueryClient();
+
   // const [controller, setController] = React.useState(new AbortController());
+  const deleteMutation = useMutation(deleteUser);
 
-  const {  data, error, isLoading } = useQuery(
-      'users',
-      () => {
-          return getUsers();
-      },
+  const { data, error, isLoading } = useQuery(
+    'usersListing',
+    () => {
+      return getUsers();
+    },
   );
-
+  const handleEditUser = (email) => {
+    setUserToEdit(email)
+  }
+  const handleDeleteUser = (id) => {
+    deleteMutation.mutateAsync(id, {
+      onSuccess: (data) => {
+        queryClient.invalidateQueries("usersListing");
+      },
+    });
+  }
 
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0;
@@ -127,9 +144,11 @@ export default function UserList() {
       <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
         <TableHead>
           <TableRow>
-            <TableCell>Email</TableCell>
+            <TableCell style={{ fontWeight: 'bold' }}>Email</TableCell>
 
-            <TableCell align="right">Edit</TableCell>
+            <TableCell align="right" style={{ fontWeight: 'bold' }}>Edit</TableCell>
+            <TableCell align="right" style={{ fontWeight: 'bold' }}>Delete</TableCell>
+
           </TableRow>
         </TableHead>
 
@@ -140,8 +159,15 @@ export default function UserList() {
           ).map((row, index) => (
             <TableRow key={row.email}>
               <TableCell align="left">{row.email}</TableCell>
-              <TableCell style={{ width: 160 }} align="right">
-                {row.email}
+              <TableCell style={{ width: 60 }} align="right">
+                <IconButton aria-label="Edit" component="label" onClick={() => handleEditUser(row.email)}>
+                  <EditIcon />
+                </IconButton>
+              </TableCell>
+              <TableCell style={{ width: 60 }} align="right">
+                <IconButton color="danger" aria-label="Delete" component="label" onClick={() => handleDeleteUser(row._id)}>
+                  <DeleteIcon />
+                </IconButton>
               </TableCell>
             </TableRow>
           ))}

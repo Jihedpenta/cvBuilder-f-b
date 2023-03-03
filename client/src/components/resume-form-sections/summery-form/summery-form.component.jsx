@@ -1,5 +1,5 @@
 import { Button, Grid, TextField, Typography, } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRef } from 'react';
 import useResume from '../../../hooks/useResume';
 import FormCard from '../form-card/form-card.component';
@@ -8,6 +8,8 @@ const SummeryForm = () => {
     const { resumeContent, setResumeContent } = useResume()
     const ref = useRef()
     const [errMsg, setErrMsg] = useState('')
+    const [resumeSummery, setResumeSummery] = useState('');
+
     const handleSave = () => {
         const summary = ref.current.value
         setErrMsg(summary === '' ? 'Please enter summery' : '')
@@ -17,6 +19,30 @@ const SummeryForm = () => {
             setResumeContent(resumeData);
         }
     };
+
+    useEffect(() => {
+      if (JSON.stringify(resumeContent.summary) !== JSON.stringify(resumeSummery)) {
+        if(resumeContent.summary){
+            setResumeSummery(resumeContent.summary);
+        }else{
+        setResumeSummery('');
+
+        }
+      }
+      
+    }, [resumeContent]);
+  
+    useEffect(()=>{
+        if (resumeSummery !== ''){
+            if (ref.current) {
+                ref.current.value = resumeSummery;
+            }
+        }else{
+            if (ref.current) {
+                ref.current.value = '';
+            }
+        }
+    }, [resumeSummery])
     return (
         <FormCard title='Summery'>
             <Grid container spacing={2}>
@@ -32,6 +58,9 @@ const SummeryForm = () => {
                         variant="filled"
                         sx={{
                             width: '100%'
+                        }}
+                        InputLabelProps={{
+                            shrink: true,
                         }}
                     />
                 </Grid>

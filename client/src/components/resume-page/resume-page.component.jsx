@@ -24,6 +24,7 @@ const ResumePage = ({ content, industry, pentaContact, index, id, anonymous }) =
 
 
     useEffect(() => {
+        console.log(content);
         const totalContentLength = contentHeightTotal([headerRef, topPageRef, summaryRef, educationRef, certifRef, workExpRef, projectRef, skillRef, toolRef, langRef])
 
         if (pagesHeight[index]) {

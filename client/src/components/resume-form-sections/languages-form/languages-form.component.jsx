@@ -1,5 +1,5 @@
 import { Button, Grid, IconButton, TextField, Typography } from '@mui/material';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import useResume from '../../../hooks/useResume';
 import FormCard from '../form-card/form-card.component';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -14,6 +14,26 @@ const LanguageForm = () => {
     const [errors, setErrors] = useState({})
     const [requiredErrMsg, setRequiredErrMsg] = useState('')
     const [langs, setLangs] = useState([])
+    const [resumeLangs, setResumeLangs] = useState([]);
+
+    useEffect(() => {
+        if (JSON.stringify(resumeContent.langs) !== JSON.stringify(resumeLangs)) {
+            if (resumeContent.langs) {
+                setResumeLangs(JSON.parse(JSON.stringify(resumeContent.langs)));
+            } else {
+                setResumeLangs(null);
+            }
+        }
+
+    }, [resumeContent]);
+
+    useEffect(() => {
+        if (resumeLangs && resumeLangs.length > 0) {
+            setLangs(resumeLangs)
+        } else {
+            setLangs([])
+        }
+    }, [resumeLangs])
     const handleAddNew = () => {
 
         const lang = langRef.current.value

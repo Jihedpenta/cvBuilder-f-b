@@ -1,5 +1,5 @@
 import { Button, Grid, IconButton, TextField, Typography } from '@mui/material';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import useResume from '../../../hooks/useResume';
 import FormCard from '../form-card/form-card.component';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -15,6 +15,28 @@ const CertificationForm = () => {
     const [errors, setErrors] = useState({})
     const [requiredErrMsg, setRequiredErrMsg] = useState('')
     const [certifications, setCertifications] = useState([])
+
+    const [resumeCertifications, setResumeCertifications] = useState([]);
+
+    useEffect(() => {
+        if (JSON.stringify(resumeContent.certifications) !== JSON.stringify(resumeCertifications)) {
+            if (resumeContent.certifications) {
+                setResumeCertifications(JSON.parse(JSON.stringify(resumeContent.certifications)));
+            } else {
+                setResumeCertifications(null);
+            }
+        }
+
+    }, [resumeContent]);
+
+    useEffect(() => {
+        if (resumeCertifications && resumeCertifications.length > 0) {
+            setCertifications(resumeCertifications)
+        } else {
+            setCertifications([])
+        }
+    }, [resumeCertifications])
+
     const handleAddNew = () => {
 
         const date = dateRef.current.value

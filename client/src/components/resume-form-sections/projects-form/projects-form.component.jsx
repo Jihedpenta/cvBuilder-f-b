@@ -1,5 +1,5 @@
 import { Button, Grid, IconButton, TextField, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import FormCard from '../form-card/form-card.component';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -21,6 +21,29 @@ const ProjectsForm = () => {
     const [requiredErrMsg, setRequiredErrMsg] = useState('')
     const [projects, setProjects] = useState([])
     const [description, setDescription] = useState('');
+
+    const [resumeProjects, setResumeProjects] = useState([]);
+
+    useEffect(() => {
+        if (JSON.stringify(resumeContent.projects) !== JSON.stringify(resumeProjects)) {
+            if (resumeContent.projects) {
+                setResumeProjects(JSON.parse(JSON.stringify(resumeContent.projects)));
+            } else {
+                setResumeProjects(null);
+            }
+        }
+
+    }, [resumeContent]);
+
+    useEffect(() => {
+        if (resumeProjects && resumeProjects.length > 0) {
+            setProjects(resumeProjects)
+        } else {
+            setProjects([])
+        }
+    }, [resumeProjects])
+
+
     function handleChange(value) {
         setDescription(value);
     }

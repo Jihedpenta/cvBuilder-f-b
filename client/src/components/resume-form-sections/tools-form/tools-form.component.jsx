@@ -1,5 +1,5 @@
 import { Button, Grid, IconButton, TextField, Typography } from '@mui/material';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import useResume from '../../../hooks/useResume';
 import FormCard from '../form-card/form-card.component';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -13,6 +13,28 @@ const ToolsForm = () => {
     const [errors, setErrors] = useState({})
     const [requiredErrMsg, setRequiredErrMsg] = useState('')
     const [tools, setTools] = useState([])
+
+    const [resumeTools, setResumeTools] = useState([]);
+
+    useEffect(() => {
+        if (JSON.stringify(resumeContent.tools) !== JSON.stringify(resumeTools)) {
+            if (resumeContent.tools) {
+                setResumeTools(JSON.parse(JSON.stringify(resumeContent.tools)));
+            } else {
+                setResumeTools(null);
+            }
+        }
+
+    }, [resumeContent]);
+
+    useEffect(() => {
+        if (resumeTools && resumeTools.length > 0) {
+            setTools(resumeTools)
+        } else {
+            setTools([])
+        }
+    }, [resumeTools])
+
     const handleAddNew = () => {
 
         const title = titleRef.current.value

@@ -6,7 +6,7 @@ import FormCard from '../form-card/form-card.component';
 
 
 const ResumeTypeForm = () => {
-    const {  setIndustry, industry, language, pentaContact , setLanguage,  setPentaContact } = useResume()
+    const { setIndustry, industry, language, pentaContact, setLanguage, setPentaContact } = useResume()
     const langRef = useRef(null)
     const industryRef = useRef(null)
     const nameRef = useRef(null)
@@ -26,41 +26,60 @@ const ResumeTypeForm = () => {
     // },[] )
 
 
-    useEffect(()=>{
+    useEffect(() => {
         console.log(industry);
-        if (industry !== ''){
+        if (industry !== '') {
             if (industryRef.current) {
                 industryRef.current.value = industry;
 
                 // industryRef.current.dispatchEvent(new Event('change', { bubbles: true }));
 
             }
-        }else{
+        } else {
             if (industryRef.current) {
                 industryRef.current.value = '';
 
             }
         }
     }, [industry])
-    
-    useEffect(()=>{
-        if (language !== ''){
+
+    useEffect(() => {
+        if (language !== '') {
             if (langRef.current) {
                 langRef.current.value = language;
             }
-        }else{
+        } else {
             if (langRef.current) {
                 langRef.current.value = '';
             }
         }
     }, [language])
 
-    useEffect(()=>{
-        // if (language !== ''){
-        //     if (langRef.current) {
-        //         langRef.current.value = language;
-        //     }
-        // }
+    useEffect(() => {
+        if (pentaContact && Object.keys(pentaContact).length > 0) {
+            if (pentaContact.name !== '') {
+                if (nameRef.current) {
+                    nameRef.current.value = pentaContact.name;
+                }
+            }
+            if (pentaContact.number !== '') {
+                if (numberRef.current) {
+                    numberRef.current.value = pentaContact.number;
+                }
+            }
+            if (pentaContact.email !== '') {
+                if (emailRef.current) {
+                    emailRef.current.value = pentaContact.email;
+                }
+            }
+        }else{
+            nameRef.current.value = '';
+            numberRef.current.value = '';
+            emailRef.current.value = '';
+
+
+        }
+
     }, [pentaContact])
 
     const handleSave = () => {
@@ -82,10 +101,10 @@ const ResumeTypeForm = () => {
         });
         setRequiredErrMsg(indus === '' || lang === '' || name === '' || number === '' || email === '' ? 'All fields are required' : '')
         setEmailErrMsg(emailRegex.test(email) || email === '' ? '' : 'Please enter a valid email')
-        if(!(indus === '' || lang === '' || name === '' || number === '' || email === '' || !emailRegex.test(email))){
+        if (!(indus === '' || lang === '' || name === '' || number === '' || email === '' || !emailRegex.test(email))) {
             setIndustry(industryRef.current.value)
             setLanguage(langRef.current.value)
-            setPentaContact({name: nameRef.current.value, email:emailRef.current.value, number:numberRef.current.value})
+            setPentaContact({ name: nameRef.current.value, email: emailRef.current.value, number: numberRef.current.value })
         }
 
 
@@ -95,7 +114,7 @@ const ResumeTypeForm = () => {
     // useEffect(()=>{
     //     console.log('valid form changed');
     //     if (validForm){
-    
+
     //     }
     // },[validForm])
 
@@ -103,7 +122,7 @@ const ResumeTypeForm = () => {
     return (
         <FormCard title='Resume Type'>
             <Grid container spacing={2}>
-            
+
                 <Grid item xs={12}
                     sm={6}
                     md={6}
@@ -160,7 +179,9 @@ const ResumeTypeForm = () => {
                         required
                         label="Name"
                         error={errors.name}
-
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
                         sx={{ width: '100%' }}
                     />
                 </Grid>
@@ -171,9 +192,10 @@ const ResumeTypeForm = () => {
                     <TextField
                         inputRef={numberRef}
                         required
-                        type='number'
                         error={errors.number}
-
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
                         label="Phone Number"
                         sx={{ width: '100%' }}
                     />
@@ -188,11 +210,14 @@ const ResumeTypeForm = () => {
                         error={errors.email}
                         label="Email Adress"
                         sx={{ width: '100%' }}
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
                     />
                 </Grid>
                 {
                     requiredErrMsg !== ''
-                &&
+                    &&
                     <Grid item xs={12}
                         sm={12}
                         md={12}>
@@ -203,7 +228,7 @@ const ResumeTypeForm = () => {
                 }
                 {
                     emailErrMsg !== ''
-                &&
+                    &&
                     <Grid item xs={12}
                         sm={12}
                         md={12}>

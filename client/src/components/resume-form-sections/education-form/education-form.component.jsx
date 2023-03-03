@@ -1,5 +1,5 @@
 import { Button, Grid, IconButton, TextField, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import FormCard from '../form-card/form-card.component';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -17,6 +17,28 @@ const EducationForm = () => {
     const [errors, setErrors] = useState({})
     const [requiredErrMsg, setRequiredErrMsg] = useState('')
     const [educations, setEducations] = useState([])
+
+    const [resumeEducations, setResumeEducations] = useState([]);
+
+    useEffect(() => {
+        if (JSON.stringify(resumeContent.educations) !== JSON.stringify(resumeEducations)) {
+            if (resumeContent.educations) {
+                setResumeEducations(JSON.parse(JSON.stringify(resumeContent.educations)));
+            } else {
+                setResumeEducations(null);
+            }
+        }
+
+    }, [resumeContent]);
+
+    useEffect(() => {
+        if (resumeEducations && resumeEducations.length > 0) {
+            setEducations(resumeEducations)
+        } else {
+            setEducations([])
+        }
+    }, [resumeEducations])
+
     const handleAddNew = () => {
 
         const startDate = startRef.current.value
@@ -33,7 +55,7 @@ const EducationForm = () => {
 
         if (startDate !== '' && endDate !== '' && university !== '' && diploma !== '') {
             setRequiredErrMsg('')
-            
+
             const newEducation = {
                 startDate: startRef.current.value,
                 endDate: endRef.current.value,
@@ -76,9 +98,9 @@ const EducationForm = () => {
         btnRef.current.innerText = 'Save'
         idRef.current.value = index
     }
-    const handleSave = ()=>{
+    const handleSave = () => {
         console.log('handeling save');
-        const newResumeData = {...resumeContent, educations}
+        const newResumeData = { ...resumeContent, educations }
         setResumeContent(newResumeData)
         console.log(resumeContent);
     }
@@ -197,11 +219,11 @@ const EducationForm = () => {
                     sm={12}
                     md={12}
                     sx={{
-                        display:'flex',
-                        justifyContent:'center',
+                        display: 'flex',
+                        justifyContent: 'center',
 
                     }}
-                    >
+                >
                     <Button onClick={handleAddNew} ref={btnRef} variant="outlined">Add New</Button>
                 </Grid>
 

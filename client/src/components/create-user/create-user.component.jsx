@@ -4,13 +4,21 @@ import TextField from "@mui/material/TextField";
 
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import useCreateUser from "../../hooks/useCreateUser";
+import useCrudUser from "../../hooks/useCrudUser";
 import { useMutation, useQueryClient } from "react-query";
+import { Grid } from "@mui/material";
+import { useState } from "react";
+import { useEffect } from "react";
 
-export default function CreateUser() {
+export default function CreateUser({userToEdit, setUserToEdit}) {
   const queryClient = useQueryClient();
-  const createUser = useCreateUser();
-  const { mutateAsync } = useMutation(createUser);
+  const {createUser, editUser} = useCrudUser();
+  const createMutation = useMutation(createUser);
+  const editMutation = useMutation(editUser);
+
+  const [userCreation, setUserCreation] = useState(true)
+  const emailRef = React.useRef()
+  const passwordRef = React.useRef()
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -19,20 +27,75 @@ export default function CreateUser() {
       email: data.get("email"),
       pwd: data.get("password"),
     };
-    mutateAsync(body, {
+    createMutation.mutateAsync(body, {
       onSuccess: (data) => {
-        queryClient.invalidateQueries("users");
+        queryClient.invalidateQueries("usersListing");
       },
     });
   };
 
+  const handleEdit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    const body = {
+      email:userToEdit,
+      newEmail: data.get("email"),
+      newPwd: data.get("password"),
+    };
+    editMutation.mutateAsync(body, {
+      onSuccess: (data) => {
+        setUserCreation(true)
+        queryClient.invalidateQueries("usersListing");
+      },
+    });
+  };
+
+  useEffect(()=>{
+    emailRef.current.value = ''
+    passwordRef.current.value = ''
+
+  },[])
+
+  useEffect(()=>{
+    if (userCreation){
+      setUserToEdit('')
+      emailRef.current.value = ''
+      passwordRef.current.value = ''
+    }
+  }, [userCreation])
+  useEffect(()=>{
+    if (userToEdit !== ''){
+      setUserCreation(false)
+      emailRef.current.value = userToEdit
+
+      // setUserToEdit('')
+    }
+  }, [userToEdit])
+
+
   return (
     <>
-      <Typography component="h2" variant="h6" color="primary" gutterBottom>
-        Create User
+    {
+      !userCreation ? 
+<Grid container>
+        <Grid item md={9}>
+        <Typography component="h2" variant="h6" color="primary" gutterBottom>
+       Edit User
       </Typography>
-      <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+        </Grid>
+        <Grid item md={3}>
+        <Button variant="outlined" onClick={()=>{setUserCreation(true)}} >Create </Button>
+        </Grid>
+      </Grid>:
+      <Typography component="h2" variant="h6" color="primary" gutterBottom>
+      Create User
+     </Typography>
+    }
+      
+      
+      <Box component="form" onSubmit={userCreation ? handleSubmit : handleEdit} noValidate sx={{ mt: 1 }}>
         <TextField
+        inputRef={emailRef}
           margin="normal"
           required
           fullWidth
@@ -41,16 +104,24 @@ export default function CreateUser() {
           name="email"
           autoComplete="off"
           autoFocus
+          InputLabelProps={{
+            shrink: true,
+        }}
         />
         <TextField
+        inputRef={passwordRef}
           margin="normal"
           required
           fullWidth
           name="password"
-          label="Password"
+          
+          label= {userCreation?"Password" : "New Password" }
           type="password"
           id="password"
           autoComplete="off"
+          InputLabelProps={{
+            shrink: true,
+        }}
         />
 
         <Button
@@ -59,7 +130,13 @@ export default function CreateUser() {
           variant="contained"
           sx={{ mt: 3, mb: 2 }}
         >
-          Create user
+        {
+          userCreation?
+          'Create user'
+          :
+          'Edit user'
+        }
+          
         </Button>
       </Box>
     </>

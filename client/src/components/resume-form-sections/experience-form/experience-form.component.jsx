@@ -1,5 +1,5 @@
 import { Button, Grid, IconButton, TextField, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import FormCard from '../form-card/form-card.component';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -21,6 +21,29 @@ const ExperienceForm = () => {
     const [requiredErrMsg, setRequiredErrMsg] = useState('')
     const [experiences, setExperiences] = useState([])
     const [description, setDescription] = useState('');
+
+
+    const [resumeExperiences, setResumeExperiences] = useState([]);
+
+    useEffect(() => {
+        if (JSON.stringify(resumeContent.experiences) !== JSON.stringify(resumeExperiences)) {
+            if (resumeContent.experiences) {
+                setResumeExperiences(JSON.parse(JSON.stringify(resumeContent.experiences)));
+            } else {
+                setResumeExperiences(null);
+            }
+        }
+
+    }, [resumeContent]);
+
+    useEffect(() => {
+        if (resumeExperiences && resumeExperiences.length > 0) {
+            setExperiences(resumeExperiences)
+        } else {
+            setExperiences([])
+        }
+    }, [resumeExperiences])
+
     function handleChange(value) {
         setDescription(value);
     }
@@ -32,7 +55,7 @@ const ExperienceForm = () => {
         const company = compRef.current.value
         const location = locationRef.current.value
 
-        console.log(startDate,endDate,jobTitle,company,location,description);
+        console.log(startDate, endDate, jobTitle, company, location, description);
 
         setErrors({
             startDate: startDate === '' ? true : false,
@@ -180,19 +203,19 @@ const ExperienceForm = () => {
                     />
                 </Grid>
                 <Grid item xs={12}
-                sm={12}
-                md={12}>
-                <TextField
-                    required
-                    label="Job Title"
-                    sx={{ width: '100%' }}
-                    inputRef={jobRef}
-                    error={errors.jobTitle}
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
-                />
-            </Grid>
+                    sm={12}
+                    md={12}>
+                    <TextField
+                        required
+                        label="Job Title"
+                        sx={{ width: '100%' }}
+                        inputRef={jobRef}
+                        error={errors.jobTitle}
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                    />
+                </Grid>
                 <Grid item xs={12}
                     sm={6}
                     md={6}>
@@ -225,17 +248,17 @@ const ExperienceForm = () => {
                 <Grid item xs={12}
                     sm={12}
                     md={12}
-                    sx= {{
-                        marginBottom:'50px'
+                    sx={{
+                        marginBottom: '50px'
                     }}>
-                    <ReactQuill 
-                        value={description} 
-                        onChange={handleChange} 
+                    <ReactQuill
+                        value={description}
+                        onChange={handleChange}
                         style={{
-                        height: '100px' 
-                        
+                            height: '100px'
+
                         }}
-                        />
+                    />
 
                 </Grid>
                 <input type="hidden" ref={idRef} />
@@ -246,7 +269,7 @@ const ExperienceForm = () => {
                         <Typography variant='body1' color='red'>{requiredErrMsg}</Typography>
                     </Grid>}
 
-                    
+
 
                 <Grid item xs={12}
                     sm={12}
@@ -254,7 +277,7 @@ const ExperienceForm = () => {
                     sx={{
                         display: 'flex',
                         justifyContent: 'center',
-                        alignItems:'flex-end'
+                        alignItems: 'flex-end'
 
 
                     }}
@@ -264,18 +287,18 @@ const ExperienceForm = () => {
 
 
 
-                 {experiences.length > 0 &&  
-                
-                <Grid item xs={12}
-                    sm={12}
-                    md={12}
+                {experiences.length > 0 &&
 
-                >
-                    <Button onClick={handleSave}>Save</Button>
-                </Grid>
+                    <Grid item xs={12}
+                        sm={12}
+                        md={12}
+
+                    >
+                        <Button onClick={handleSave}>Save</Button>
+                    </Grid>
                 }
 
-                
+
             </Grid>
         </FormCard>
     );

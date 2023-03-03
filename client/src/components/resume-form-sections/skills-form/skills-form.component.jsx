@@ -1,5 +1,5 @@
 import { Button, Grid, IconButton, TextField, Typography } from '@mui/material';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import useResume from '../../../hooks/useResume';
 import FormCard from '../form-card/form-card.component';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -13,6 +13,29 @@ const SkillsForm = () => {
     const [errors, setErrors] = useState({})
     const [requiredErrMsg, setRequiredErrMsg] = useState('')
     const [skills, setSkills] = useState([])
+
+    const [resumeSkills, setResumeSkills] = useState([]);
+
+    useEffect(() => {
+        if (JSON.stringify(resumeContent.skills) !== JSON.stringify(resumeSkills)) {
+            if (resumeContent.skills) {
+                setResumeSkills(JSON.parse(JSON.stringify(resumeContent.skills)));
+            } else {
+                setResumeSkills(null);
+            }
+        }
+
+    }, [resumeContent]);
+
+    useEffect(() => {
+        if (resumeSkills && resumeSkills.length > 0) {
+            setSkills(resumeSkills)
+        } else {
+            setSkills([])
+        }
+    }, [resumeSkills])
+
+
     const handleAddNew = () => {
 
         const title = titleRef.current.value
@@ -23,7 +46,7 @@ const SkillsForm = () => {
 
         if (title !== '') {
             setRequiredErrMsg('')
-            const newSkill = title 
+            const newSkill = title
             if (idRef.current?.value) {
                 const index = idRef.current.value
                 skills[index] = newSkill
@@ -54,7 +77,7 @@ const SkillsForm = () => {
         idRef.current.value = index
     }
     const handleSave = () => {
-        console.log('handeling save resumeContent', resumeContent );
+        console.log('handeling save resumeContent', resumeContent);
         console.log('handeling save, skills', skills);
 
         const newResumeData = { ...resumeContent, skills }
@@ -70,14 +93,14 @@ const SkillsForm = () => {
                     return (
                         <Grid item xs={12} sm={12} md={12} key={index}>
                             <Grid container>
-                                
+
                                 <Grid item md={10}>
                                     <Typography sx={{
                                         fontWeight: 'bold'
                                     }}>
                                         {skill}
                                     </Typography>
-                                    
+
                                 </Grid>
                                 <Grid item md={1}>
                                     <IconButton color="danger" aria-label="Delete" component="label" onClick={() => handleDelete(index)}>

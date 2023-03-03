@@ -1,4 +1,4 @@
-import { Button, Card, CardActions, CardContent,  Grid, TextField, Typography } from '@mui/material';
+import { Button, Card, CardActions, CardContent, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
 import { Container } from '@mui/system';
 import React from 'react';
 import { useQuery } from 'react-query';
@@ -9,14 +9,17 @@ import useResume from '../../hooks/useResume';
 import useGetUserId from '../../hooks/useGetUserId';
 import { ROLES_LIST } from '../../roles_list';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 const ResumeListingComponent = () => {
     const getUserId = useGetUserId()
-    const { getResumesByAuthorId, getAllResumes, getResumesById } = useCrudResume()
+    const { getResumesByAuthorId, getAllResumes } = useCrudResume()
     const userId = getUserId()
     const { auth } = useAuth()
-    const {setResumeContent, setContentToFill, setPagesContent} =useResume()
     const navigate = useNavigate();
+    const  [filterIndustry, setFilterIndustry] = useState('')
+    const  [filterName, setFilterName] = useState('')
+    const  [filterJob, setFilterJob] = useState('')
 
     const isAdmin = auth?.roles?.find(role => role === ROLES_LIST.Admin)
 
@@ -31,11 +34,11 @@ const ResumeListingComponent = () => {
     );
 
     const handleEdit = async (id) => {
-        navigate('/resume-construction/'+id)
+        navigate('/resume-construction/' + id)
         // redirect to edit path
     }
     const handleDownloadPdf = async (id) => {
-        navigate('/resume/'+id)
+        navigate('/resume/' + id)
         // redirect to save path 
     }
 
@@ -50,25 +53,84 @@ const ResumeListingComponent = () => {
                             Resumes Listing
                         </Typography>
                     </Grid>
-                    <Grid item xs={3} sm={3} md={3}>
-                        <TextField label="Candidate Name" type="search" sx={{
-                            width: '100%'
-                        }} />
 
-                    </Grid>
-                    <Grid item xs={3} sm={3} md={3}>
-                        <TextField label="Job Title" type="search" sx={{
-                            width: '100%'
-                        }} />
-                    </Grid>
+                    {
+
+                        isAdmin ?
+                            <React.Fragment>
+                                <Grid item xs={2} sm={2} md={2}>
+                                    <FormControl sx={{ minWidth: 120, width: '100%' }}>
+                                        <InputLabel id="industry-picker">Industry</InputLabel>
+                                        <Select
+                                            labelId="industry-picker"
+                                            label="Industry"
+                                            defaultValue=''
+                                            onChange={(e)=>{setFilterIndustry(e.target.value)}}
+                                        >
+                                            <MenuItem value={"transport"}>Transportation</MenuItem>
+                                            <MenuItem value={"telecom"}>Telecom</MenuItem>
+                                            <MenuItem value={"oilgas"}>Oil & gas</MenuItem>
+                                            <MenuItem value={"energy"}>Energy</MenuItem>
+                                            <MenuItem value={"other"}>Other</MenuItem>
+                                        </Select>
+                                    </FormControl>
+
+                                </Grid>
+                                <Grid item xs={2} sm={2} md={2}>
+                                    <TextField 
+                                    label="Candidate Name" 
+                                    type="search" 
+                                    sx={{
+                                        width: '100%'
+                                    }} 
+                                    onChange={(e)=>{setFilterName(e.target.value)}}/>
+
+                                </Grid>
+                                <Grid item xs={2} sm={2} md={2}>
+                                    <TextField label="Job Title" type="search" sx={{
+                                        width: '100%'
+                                    }} 
+                                    onChange={(e)=>{setFilterJob(e.target.value)}}
+                                    />
+                                </Grid>
+                            </React.Fragment>
+                            :
+                            <React.Fragment>
+                                <Grid item xs={3} sm={3} md={3}>
+                                    <TextField label="Candidate Name" type="search" sx={{
+                                        width: '100%'
+                                    }}
+                                    
+                                    onChange={(e)=>{setFilterName(e.target.value)}}
+                                    />
+
+                                </Grid>
+                                <Grid item xs={3} sm={3} md={3}>
+                                    <TextField label="Job Title" type="search" sx={{
+                                        width: '100%'
+                                    }}
+                                    onChange={(e)=>{setFilterJob(e.target.value)}}
+                                    
+                                    />
+                                </Grid>
+                            </React.Fragment>
+                    }
+
                 </Grid>
 
 
                 {/* End hero unit */}
                 <Grid container spacing={4}>
                     {resumesQuery.data.map((resume) => {
+                        console.log(resume.industry);
                         const candidateName = resume.data.header.firstName + ' ' + resume.data.header.lastName
                         const candidateJobTitle = resume.data.header.jobTitle
+                        const resumeIndustry = resume.industry
+
+                        if (!candidateName.toLowerCase().includes(filterName.toLowerCase())) return (true)
+                        if (!candidateJobTitle.toLowerCase().includes(filterJob.toLowerCase())) return (true)
+                        if (filterIndustry!==''&& filterIndustry!==resumeIndustry) return (true)
+
                         return (
                             <Grid item key={resume._id} xs={6} sm={4} md={3}>
                                 <Card
