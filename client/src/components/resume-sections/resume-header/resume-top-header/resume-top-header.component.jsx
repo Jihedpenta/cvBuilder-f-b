@@ -68,8 +68,8 @@ const ResumeTopHeader = ({ headerData, primaryColor, logoLink, anonymous }) => {
                     <img
                         src={logoLink}
                         alt='Pentabell Logo'
-                        width='70'
-                        height='auto'
+                        width='auto'
+                        height='60'
                         loading="lazy"
 
                     />
