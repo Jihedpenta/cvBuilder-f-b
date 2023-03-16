@@ -1,29 +1,56 @@
 
 import { useQuery } from 'react-query';
+import { axiosPublic } from '../axios/axios';
 import { refreshToken } from '../utils/api/auth/auth-utils';
 import useAuth from './useAuth';
 
-const useRefreshToken = (enabled = false) => {
+const useRefreshToken = () => {
     const { setAuth } = useAuth()
-    const { status, refetch } = useQuery('refreshToken', refreshToken, {
-        enabled: enabled,
-        refetchInterval:1000 * 30,
-        // cacheTime:1000 * 60 * 60, 
-        onSuccess: (data) => {
-          setAuth((prev) => {
 
-            return {
+    const refresh = async () => {
+      const response = await axiosPublic.get('/refresh', {
+          withCredentials: true
+      }); 
+      localStorage.setItem('refreshToken',response.data.newRefreshToken);
+      localStorage.setItem('accessToken',response.data.accessToken);
+      console.log("response.data :: ", response.data);
+      console.log("refreshToken useRefreshToken:: ", response.data.newRefreshToken);
+
+      console.log("accessToken useRefreshToken:: ", response.data.accessToken);
+    
+
+      
+      setAuth(prev => {
+          return { 
               ...prev, 
-              roles:data.roles,
-              accessToken:data.accessToken}
-        })
-        },
-      })
+              roles: response.data.roles,
+              accessToken: response.data.accessToken,
+              refreshToken: response.data.newRefreshToken
+          }
+      });
+      return response.data.accessToken;
+  }
+  return refresh;
 
-    return {
-      refreshTokenLoading: status === 'loading',
-      refreshingToken: refetch,
-    }
+    // const { status, refetch } = useQuery('refreshToken', refreshToken, {
+    //     enabled: enabled,
+    //     refetchInterval:1000 * 60 *60 * 10,
+    //     // cacheTime:1000 * 60 * 60, 
+    //     onSuccess: (data) => {
+    //       setAuth((prev) => {
+
+    //         return {
+    //           ...prev, 
+    //           roles:data.roles,
+    //           accessToken:data.accessToken}
+    //     })
+    //     },
+    //   })
+
+    // return {
+    //   refreshTokenLoading: status === 'loading',
+    //   refreshingToken: refetch,
+    // }
 };
 
 export default useRefreshToken;

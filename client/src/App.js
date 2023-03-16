@@ -13,6 +13,7 @@ import Layout from "./components/layout/layout.component";
 
 import { adminNavItems, userNavItems } from './utils/nav-items'
 import ResumeSave from "./pages/resume-save/resume-save.component";
+import Page404 from "./Page404";
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
       <Routes>
 
         <Route path="/sign-in" element={<SignIn />} />
+
         <Route element={<PersistLogin />}>
 
           <Route index element={<RedirectionAuthBased />} />
@@ -47,6 +49,7 @@ function App() {
           </Route>
 
         </Route>
+        <Route path="*" element={<Page404 />} />
       </Routes>
 
   );

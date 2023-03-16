@@ -23,7 +23,8 @@ export const RESUME_CONTENT = {
                 email: 'tounsi.moh@hotmail.fr',
                 nationality: 'Algérienne',
                 birthdate: '23/05/1986',
-                imageUrl: 'http://localhost:3500/img/img1.jpg'
+                // imageUrl: 'http://localhost:4002/img/img1.jpg'
+                imageUrl: 'http://iu4juaymdk.preview.infomaniak.website/img/img1.jpg'
             },
             summary: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqum .Duis aute irure dolor in reprehenderit in .Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqum .Duis aute irure dolor in reprehenderit in ',
 

@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.be0a7930.css",
-    "main.js": "/static/js/main.76b9b230.js",
+    "main.js": "/static/js/main.35fb7570.js",
     "static/js/598.f37b9069.chunk.js": "/static/js/598.f37b9069.chunk.js",
     "static/js/787.fb80159c.chunk.js": "/static/js/787.fb80159c.chunk.js",
     "static/media/Pentabell-Regular.ttf": "/static/media/Pentabell-Regular.7b8b104010be715e0e42.ttf",
@@ -9,12 +9,12 @@
     "index.html": "/index.html",
     "static/media/getFetch.cjs": "/static/media/getFetch.40f37ddea2378391108f.cjs",
     "main.be0a7930.css.map": "/static/css/main.be0a7930.css.map",
-    "main.76b9b230.js.map": "/static/js/main.76b9b230.js.map",
+    "main.35fb7570.js.map": "/static/js/main.35fb7570.js.map",
     "598.f37b9069.chunk.js.map": "/static/js/598.f37b9069.chunk.js.map",
     "787.fb80159c.chunk.js.map": "/static/js/787.fb80159c.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.be0a7930.css",
-    "static/js/main.76b9b230.js"
+    "static/js/main.35fb7570.js"
   ]
 }

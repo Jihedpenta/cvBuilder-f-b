@@ -22,24 +22,23 @@ const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
   const { setAuth, persist, setPersist, auth } = useAuth();
-  const { refreshTokenLoading , refreshingToken } = useRefreshToken();
-
+  // const { refreshTokenLoading , refreshingToken } = useRefreshToken();
+  const refresh = useRefreshToken();
   const navigate = useNavigate();
 
   const togglePersist = () => {
     setPersist(prev => !prev);
   }
 
+  const refreshingToken = async () => {
+    await refresh();
+  };
+  useEffect(() => {
+    refreshingToken();
+  }, []);
 
   useEffect(()=>{
-    const refresh = async ()=>{
-      const data = await refreshingToken()
-      return data
-    }
-    refresh()
-  },[])
-  useEffect(()=>{
-    if (auth?.accessToken){
+    if (auth?.user){
       navigate('/', { replace: true });
     }
   },[auth])
@@ -57,7 +56,11 @@ const LoginForm = () => {
       onSuccess: (data) => {
         console.log(data);
         sessionStorage.setItem("sessionSigned",true)
-        setAuth({ roles: data.roles, accessToken: data.accessToken })
+        console.log('data from login :: ', data);
+        localStorage.setItem('refreshToken', data.refreshToken)
+        localStorage.setItem('accessToken', data.accessToken)
+
+        setAuth({ roles: data.roles, accessToken: data.accessToken, refreshToken:  data.refreshToken })
         const home = data.roles.find(role => role === ROLES_LIST.Admin)
           ? "/user-management"
           : "/resume-listing"
@@ -74,7 +77,7 @@ const LoginForm = () => {
     await mutateAsync({ email, pwd })
   };
 
-  if(refreshTokenLoading) return (<h2>Refreshing</h2>)
+  // if(refreshTokenLoading) return (<h2>Refreshing</h2>)
 
 
   return (

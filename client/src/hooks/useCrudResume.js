@@ -1,7 +1,8 @@
 import useAxiosPrivate from "./useAxiosPrivate";
+import { axiosPrivate } from "../axios/axios";
 
 const useCrudResume = () => {
-    const axiosPrivate = useAxiosPrivate();
+    // const axiosPrivate = useAxiosPrivate();
 
     const createResume = async (body) => {
         try {

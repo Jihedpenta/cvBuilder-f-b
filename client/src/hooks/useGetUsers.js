@@ -1,8 +1,9 @@
 import { useState } from "react";
-import useAxiosPrivate from "./useAxiosPrivate";
+// import useAxiosPrivate from "./useAxiosPrivate";
+import { axiosPrivate } from "../axios/axios";
 
 const useGetUsers = () => {
-    const axiosPrivate = useAxiosPrivate();
+    // const axiosPrivate = useAxiosPrivate();
     const [controller, setController] = useState(new AbortController());
 
     const getUsers = async () => {

@@ -74,6 +74,9 @@ export default function Layout({ menuItems }) {
   // const rows = []
   const signOut = async () => {
     await logout();
+    localStorage.removeItem('refreshToken');
+    localStorage.removeItem('accessToken');
+
     Navigate("/sign-in");
   };
   const [open, setOpen] = React.useState(true);

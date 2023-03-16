@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router();
 const resumesController = require('../../controllers/resumesController');
 
+const verifyJWT = require('../../middleware/verifyJWT');
+
+router.use(verifyJWT)
 router.route('/')
     .get(resumesController.getAllResumes)
     .post(resumesController.createResume);

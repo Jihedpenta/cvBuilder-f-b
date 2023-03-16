@@ -16,17 +16,18 @@ const handleLogin = async (req, res) => {
         console.log('foundUser._id',foundUser._id.toString());
         const accessToken = jwt.sign(
             {
-                "UserInfo": {
-                    "id":foundUser._id.toString(), 
-                    "email": foundUser.email,
-                    "roles": roles
-                }
+               UserInfo: {
+                      name: foundUser.name,
+                      email: foundUser.email,
+                      roles: roles,
+                      id: foundUser._id,
+                    },
             },
             process.env.ACCESS_TOKEN_SECRET,
-            { expiresIn: '1m' }
+            { expiresIn: '1d' }
         );
         const refreshToken = jwt.sign(
-            { "email": foundUser.email },
+                { email: foundUser.email, name: foundUser.name },
             process.env.REFRESH_TOKEN_SECRET,
             { expiresIn: '1d' }
         );
@@ -45,7 +46,7 @@ const handleLogin = async (req, res) => {
         });
 
         // Send authorization roles and access token to user
-        res.json({ roles, accessToken });
+        res.json({ roles, accessToken , refreshToken});
 
     } else {
         res.sendStatus(401);

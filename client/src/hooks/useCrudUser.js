@@ -1,7 +1,8 @@
-import useAxiosPrivate from "./useAxiosPrivate";
+// import useAxiosPrivate from "./useAxiosPrivate";
+import { axiosPrivate } from "../axios/axios";
 
 const useCrudUser = () => {
-    const axiosPrivate = useAxiosPrivate();
+    // const axiosPrivate = useAxiosPrivate();
 
     const createUser = async (body) => {
         try {

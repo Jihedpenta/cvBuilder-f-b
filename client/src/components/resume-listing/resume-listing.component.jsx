@@ -1,6 +1,6 @@
 import { Button, Card, CardActions, CardContent, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
 import { Container } from '@mui/system';
-import React from 'react';
+import React,{useEffect} from 'react';
 import { useQuery } from 'react-query';
 import useAuth from '../../hooks/useAuth';
 import useCrudResume from '../../hooks/useCrudResume';
@@ -22,7 +22,8 @@ const ResumeListingComponent = () => {
     const  [filterJob, setFilterJob] = useState('')
 
     const isAdmin = auth?.roles?.find(role => role === ROLES_LIST.Admin)
-
+    console.log(' auth?.roles ::: ',  auth?.roles);
+console.log('isAdmin ::: ', auth?.roles?.find(role => role === ROLES_LIST.Admin));
     const resumesQuery = useQuery(
         'resumesForListing',
         () => {

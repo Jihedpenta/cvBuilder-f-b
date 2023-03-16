@@ -17,7 +17,7 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    refreshToken: String, 
+    refreshToken: [String], 
     resumes: [{ type: Schema.Types.ObjectId, ref: 'Resume' }]
 
 });
