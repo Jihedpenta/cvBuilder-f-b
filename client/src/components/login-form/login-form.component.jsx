@@ -137,13 +137,13 @@ const LoginForm = () => {
         </Grid>
       )}
 
-      <Grid container>
+      {/* <Grid container>
         <Grid item xs>
           <Link href="#" variant="body2" sx={{ color: "#245097" }}>
             Forgot password?
           </Link>
         </Grid>
-      </Grid>
+      </Grid> */}
     </Box>
   );
 };

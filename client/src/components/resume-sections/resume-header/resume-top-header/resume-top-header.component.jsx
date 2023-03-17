@@ -13,7 +13,7 @@ const ResumeTopHeader = ({ headerData, primaryColor, logoLink, anonymous }) => {
                         height: '100%'
                     }}>
                         <img
-                            src={'http://localhost:3500/'+headerData.imageUrl}
+                            src={'https://cv.beestalent.jobs/'+headerData.imageUrl}
                             // src={logoLink}
                             alt={headerData.fullName}
                             width='120'

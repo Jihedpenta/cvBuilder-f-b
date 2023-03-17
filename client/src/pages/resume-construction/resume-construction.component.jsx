@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 import useResume from '../../hooks/useResume';
 import useCrudResume from '../../hooks/useCrudResume';
 import { useLocation } from "react-router-dom";
+import './resume-construction.style.scss'
 
 export default function ResumeConstruction() {
   const location = useLocation();
@@ -82,9 +83,13 @@ export default function ResumeConstruction() {
 
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Grid container>
-        <ResumePreview />
-        <ResumeFillInForm />
+      <Grid id="create-resume-dash" container spacing={2} columns={12}>
+        <Grid item md={12} lg={12} xl={6}>
+          <ResumePreview />
+        </Grid>
+        <Grid item xs={12} sm={12} md={12} lg={12} xl={6}>
+          <ResumeFillInForm />
+        </Grid>
       </Grid>
     </ThemeProvider>
 

@@ -1,7 +1,9 @@
 import axios from "axios";
 
 // const baseURL = "http://127.0.0.1:4002"
-const baseURL = "http://iu4juaymdk.preview.infomaniak.website"
+const baseURL = "https://cv.beestalent.jobs"
+
+// const baseURL = "http://iu4juaymdk.preview.infomaniak.website"
 
 export const axiosPublic = axios.create({
     baseURL:baseURL

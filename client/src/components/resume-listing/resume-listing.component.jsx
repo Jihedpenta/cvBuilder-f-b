@@ -50,7 +50,7 @@ console.log('isAdmin ::: ', auth?.roles?.find(role => role === ROLES_LIST.Admin)
             <Card sx={{ padding: '50px', width: '100%' }} >
                 <Grid container spacing={4} sx={{ mb: 3 }}>
                     <Grid item xs={6} sm={6} md={6}>
-                        <Typography gutterBottom variant="h3" component="div">
+                        <Typography gutterBottom variant="h4" component="div">
                             Resumes Listing
                         </Typography>
                     </Grid>
@@ -139,7 +139,7 @@ console.log('isAdmin ::: ', auth?.roles?.find(role => role === ROLES_LIST.Admin)
                                 >
 
                                     <CardContent sx={{ flexGrow: 1 }}>
-                                        <Typography gutterBottom variant="h5" component="h2">
+                                        <Typography gutterBottom variant="h6" component="h2">
                                             {candidateName}
                                         </Typography>
                                         <Typography>

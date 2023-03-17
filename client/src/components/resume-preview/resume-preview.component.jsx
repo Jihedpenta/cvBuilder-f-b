@@ -21,6 +21,7 @@ const ResumePreview = () => {
 
   return (
     <Grid
+    id="resume-preview"
       item
       xs={12}
       sm={6}
