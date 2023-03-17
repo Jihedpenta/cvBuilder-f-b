@@ -26,8 +26,6 @@ const ResumeFillInForm = () => {
   const [resumeIsEmptry, setResumeIsEmpty] = useState(true);
 
   useEffect(() => {
-    console.log(resumeContent);
-    console.log(Object.keys(resumeContent) >= 1);
     if (!Object.keys(resumeContent).length >= 1) {
       setResumeIsEmpty(true);
     } else {

@@ -22,8 +22,6 @@ const ResumeListingComponent = () => {
     const  [filterJob, setFilterJob] = useState('')
 
     const isAdmin = auth?.roles?.find(role => role === ROLES_LIST.Admin)
-    console.log(' auth?.roles ::: ',  auth?.roles);
-console.log('isAdmin ::: ', auth?.roles?.find(role => role === ROLES_LIST.Admin));
     const resumesQuery = useQuery(
         'resumesForListing',
         () => {
@@ -123,7 +121,6 @@ console.log('isAdmin ::: ', auth?.roles?.find(role => role === ROLES_LIST.Admin)
                 {/* End hero unit */}
                 <Grid container spacing={4}>
                     {resumesQuery.data.map((resume) => {
-                        console.log(resume.industry);
                         const candidateName = resume.data.header.firstName + ' ' + resume.data.header.lastName
                         const candidateJobTitle = resume.data.header.jobTitle
                         const resumeIndustry = resume.industry

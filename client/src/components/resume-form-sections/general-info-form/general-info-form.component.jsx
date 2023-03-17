@@ -36,7 +36,6 @@ const GeneralInfoForm = () => {
     if (JSON.stringify(resumeContent.header) !== JSON.stringify(resumeHeader)) {
       setResumeHeader(resumeContent.header);
     }
-    console.log(resumeContent);
   }, [resumeContent]);
 
   useEffect(() => {
@@ -114,7 +113,6 @@ const GeneralInfoForm = () => {
     const email = emailRef.current.value;
     const phone = phoneRef.current.value;
     const nationality = nationRef.current.value;
-    // console.log(name,job,email,phone,nationality);
     setErrors({
       firstName: firstName === "" ? true : false,
       lastName: lastName === "" ? true : false,

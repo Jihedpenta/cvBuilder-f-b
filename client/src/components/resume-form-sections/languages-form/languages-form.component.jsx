@@ -70,7 +70,6 @@ const LanguageForm = () => {
         const newLangs = [...langs]
         newLangs.splice(index, 1)
         setLangs(newLangs)
-        console.log('clicked ', newLangs);
     }
     const handleEdit = (index) => {
         langRef.current.value = langs[index].lang
@@ -79,10 +78,8 @@ const LanguageForm = () => {
         idRef.current.value = index
     }
     const handleSave = () => {
-        console.log('handeling save');
         const newResumeData = { ...resumeContent, langs }
         setResumeContent(newResumeData)
-        console.log(resumeContent);
     }
     return (
         <FormCard title="Languages" mb={10}>

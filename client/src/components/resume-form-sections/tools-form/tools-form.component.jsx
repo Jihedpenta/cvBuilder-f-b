@@ -68,7 +68,6 @@ const ToolsForm = () => {
         const newTools = [...tools]
         newTools.splice(index, 1)
         setTools(newTools)
-        console.log('clicked ', newTools);
     }
     const handleEdit = (index) => {
         titleRef.current.value = tools[index]
@@ -76,14 +75,8 @@ const ToolsForm = () => {
         idRef.current.value = index
     }
     const handleSave = () => {
-        console.log('handeling save resumeContent', resumeContent );
-        console.log('handeling save, tools', tools);
-
         const newResumeData = { ...resumeContent, tools }
-        console.log('handeling save resumeContent', resumeContent);
-
         setResumeContent(newResumeData)
-        console.log(resumeContent);
     }
     return (
         <FormCard title="Tools">

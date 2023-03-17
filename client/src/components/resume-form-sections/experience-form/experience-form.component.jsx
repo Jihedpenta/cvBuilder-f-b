@@ -55,7 +55,6 @@ const ExperienceForm = () => {
         const company = compRef.current.value
         const location = locationRef.current.value
 
-        console.log(startDate, endDate, jobTitle, company, location, description);
 
         setErrors({
             startDate: startDate === '' ? true : false,
@@ -106,7 +105,6 @@ const ExperienceForm = () => {
         const newExperiences = [...experiences]
         newExperiences.splice(index, 1)
         setExperiences(newExperiences)
-        console.log('clicked ', newExperiences);
     }
     const handleEdit = (index) => {
         startRef.current.value = experiences[index].startDate
@@ -120,19 +118,15 @@ const ExperienceForm = () => {
         idRef.current.value = index
     }
     const handleSave = () => {
-        console.log('handeling save resumeContent', resumeContent);
         const newResumeData = { ...resumeContent, experiences }
-        console.log('handeling save newResumeData', newResumeData);
 
         setResumeContent(newResumeData)
-        console.log(resumeContent);
     }
 
     return (
         <FormCard title='Experiences'>
             <Grid container>
                 {experiences.map((experience, index) => {
-                    console.log(experience);
                     return (
                         <Grid item xs={12} sm={12} md={12} key={index}>
                             <Grid container>

@@ -24,7 +24,6 @@ const ResumePage = ({ content, industry, pentaContact, index, id, anonymous }) =
 
 
     useEffect(() => {
-        console.log(content);
         const totalContentLength = contentHeightTotal([headerRef, topPageRef, summaryRef, educationRef, certifRef, workExpRef, projectRef, skillRef, toolRef, langRef])
 
         if (pagesHeight[index]) {
@@ -56,9 +55,6 @@ const ResumePage = ({ content, industry, pentaContact, index, id, anonymous }) =
     }, [pagesContent, contentToFill, pagesHeight])
 
 
-
-
-    // console.log('the id is in page',id);
 
     return (
 

@@ -14,7 +14,6 @@ const handleRefreshToken = async (req, res) => {
   const newRefreshTokenArray = foundUser.refreshToken.filter(
     (rt) => rt !== refreshToken
   );
-  console.log("newRefreshTokenArray :::", newRefreshTokenArray);
   // evaluate jwt
   jwt.verify(
     refreshToken,

@@ -13,7 +13,6 @@ const handleLogin = async (req, res) => {
     if (match) {
         const roles = Object.values(foundUser.roles).filter(Boolean);
         // create JWTs
-        console.log('foundUser._id',foundUser._id.toString());
         const accessToken = jwt.sign(
             {
                UserInfo: {
@@ -34,8 +33,6 @@ const handleLogin = async (req, res) => {
         // Saving refreshToken with current user
         foundUser.refreshToken = refreshToken;
         const result = await foundUser.save();
-        // console.log(result);
-        console.log(roles);
 
         // Creates Secure Cookie with refresh token
         res.cookie('jwt', refreshToken, { 

@@ -34,7 +34,6 @@ const ResumePageContainer = ({
   // const some_var = []
   useEffect(() => {
     if (innerRef.current.offsetHeight > 20) {
-      // console.log(typeof(some_var));
       let newPagesHeights = [];
       if (index === 0) {
         newPagesHeights = [innerRef.current.offsetHeight];
@@ -46,7 +45,6 @@ const ResumePageContainer = ({
       // newPagesHeights[index]= innerRef.current.offsetHeight
       // pagesHeights=innerRef.current.offsetHeight
       // // pagesHeightArray.push(innerRef.current.offsetHeight)
-      // console.log(pagesHeights);
 
       // pagesHeightArray[index] = innerRef.current.offsetHeight
       setPagesHeight(newPagesHeights);
@@ -54,10 +52,8 @@ const ResumePageContainer = ({
   }, [height]);
 
   useEffect(() => {
-    // console.log('current page height from container', pagesHeight)
   }, [pagesHeight]);
 
-  // console.log('the id is ', id);
 
   return (
     <Grid

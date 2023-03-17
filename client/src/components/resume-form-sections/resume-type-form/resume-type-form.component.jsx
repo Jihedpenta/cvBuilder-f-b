@@ -18,16 +18,13 @@ const ResumeTypeForm = () => {
 
     // useEffect(()=>{
     //     // if (langRef.current) {
-    //         console.log('laang effect fired');
     //         langRef.current.value = 'fr';
-    //         console.log(langRef.current.value);
 
     //     // }
     // },[] )
 
 
     useEffect(() => {
-        console.log(industry);
         if (industry !== '') {
             if (industryRef.current) {
                 industryRef.current.value = industry;
@@ -84,7 +81,6 @@ const ResumeTypeForm = () => {
 
     const handleSave = () => {
 
-        console.log('handle save form');
         // setValidForm(false)
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const lang = langRef.current.value;
@@ -112,7 +108,6 @@ const ResumeTypeForm = () => {
 
 
     // useEffect(()=>{
-    //     console.log('valid form changed');
     //     if (validForm){
 
     //     }
@@ -177,7 +172,7 @@ const ResumeTypeForm = () => {
                     <TextField
                         inputRef={nameRef}
                         required
-                        label="Name"
+                        label="Type"
                         error={errors.name}
                         InputLabelProps={{
                             shrink: true,

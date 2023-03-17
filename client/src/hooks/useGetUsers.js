@@ -13,7 +13,6 @@ const useGetUsers = () => {
             });
             return data
         } catch (error) {
-            console.log(error);
             throw Error(error)
         }
     }

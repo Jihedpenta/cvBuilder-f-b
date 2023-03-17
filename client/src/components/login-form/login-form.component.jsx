@@ -54,9 +54,7 @@ const LoginForm = () => {
     {
       enabled:false,
       onSuccess: (data) => {
-        console.log(data);
         sessionStorage.setItem("sessionSigned",true)
-        console.log('data from login :: ', data);
         localStorage.setItem('refreshToken', data.refreshToken)
         localStorage.setItem('accessToken', data.accessToken)
 
@@ -73,7 +71,6 @@ const LoginForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log('handling submit');
     await mutateAsync({ email, pwd })
   };
 

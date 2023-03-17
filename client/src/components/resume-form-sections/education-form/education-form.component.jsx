@@ -63,7 +63,6 @@ const EducationForm = () => {
                 diploma: diploRef.current.value
             }
             if (idRef.current?.value) {
-                console.log('there is a value ', idRef.current.value);
                 const index = idRef.current.value
                 educations[index] = newEducation
                 const newEducations = [...educations]
@@ -88,7 +87,6 @@ const EducationForm = () => {
         const newEducations = [...educations]
         newEducations.splice(index, 1)
         setEducations(newEducations)
-        console.log('clicked ', newEducations);
     }
     const handleEdit = (index) => {
         startRef.current.value = educations[index].startDate
@@ -99,10 +97,8 @@ const EducationForm = () => {
         idRef.current.value = index
     }
     const handleSave = () => {
-        console.log('handeling save');
         const newResumeData = { ...resumeContent, educations }
         setResumeContent(newResumeData)
-        console.log(resumeContent);
     }
 
     return (

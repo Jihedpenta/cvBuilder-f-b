@@ -8,7 +8,6 @@ export const addContentSlice = (pagesContentData, contentToFillData) => {
     //return 
     let added = false;
     if (contentToFill.header && !added) {
-        // console.log('content to fill contain header');
         pageCurrentContent['header'] = contentToFill.header;
         delete contentToFill.header;
         added = true;
@@ -20,7 +19,6 @@ export const addContentSlice = (pagesContentData, contentToFillData) => {
     //remove summery from contentToFill 
     //return 
     if (contentToFill.summary && !added) {
-        // console.log('content to fill contain summary');
         pageCurrentContent.summary = contentToFill.summary;
         delete contentToFill.summary;
         added = true
@@ -32,15 +30,10 @@ export const addContentSlice = (pagesContentData, contentToFillData) => {
     if (((contentToFill.educations && contentToFill.educations.length > 0) || pageCurrentContent.educations) && !added) {
         //if pageCurrentContent don't contain education 
         if (!pageCurrentContent.educations) {
-            // console.log('add first item');
-            // console.log('before adding : ',pageCurrentContent.educations);
-
-            // console.log(contentToFill.educations);
             pageCurrentContent.educations = {
                 firstDisplay: Object.keys(pageCurrentContent).length === 0 ? false : true,
                 data: [{ ...contentToFill.educations[0] }]
             }
-            // console.log('after adding : ',pageCurrentContent.educations);
 
             contentToFill.educations.shift();
             if (contentToFill.educations.length === 0) { delete contentToFill.educations }
@@ -48,16 +41,12 @@ export const addContentSlice = (pagesContentData, contentToFillData) => {
         }
         //if pageCurrentContent and contentToFill both contain education
         if (((contentToFill.educations && contentToFill.educations.length > 0) && pageCurrentContent.educations) && !added) {
-            // console.log('add n+1 item');
-            // console.log('before adding n+1 : ',pageCurrentContent.educations);
 
             //add education element in currentContent
             //delete education element from contentTofill 
             //if education in contenttofill is empty => remove it completely 
             pageCurrentContent.educations.data.push({ ...contentToFill.educations[0] })
-            // console.log('after adding  n+1: ',pageCurrentContent.educations);
 
-            // console.log(pageCurrentContent.educations.data);
             contentToFill.educations.shift();
             if (contentToFill.educations.length === 0) { delete contentToFill.educations }
             added = true
@@ -80,7 +69,6 @@ export const addContentSlice = (pagesContentData, contentToFillData) => {
         }
         //if pageCurrentContent don't contain education 
         if (!pageCurrentContent.certifications) {
-            // console.log(contentToFill.certifications);
             pageCurrentContent.certifications = {
                 firstDisplay: Object.keys(pageCurrentContent).length === 0 ? false : true,
                 data: [contentToFill.certifications[0]]
@@ -96,25 +84,17 @@ export const addContentSlice = (pagesContentData, contentToFillData) => {
 
         //if pageCurrentContent and contentToFill both contain experiences
         if ((contentToFill.experiences && contentToFill.experiences.length > 0) && pageCurrentContent.experiences) {
-            // console.log('add next certifs');
             //add experiences element in currentContent
             //delete experiences element from contentTofill 
             //if experiences in contenttofill is empty => remove it completely 
-            // console.log('before push ',pageCurrentContent.experiences.data);
             pageCurrentContent.experiences.data.push(contentToFill.experiences[0])
-            // console.log('after push ',pageCurrentContent.experiences.data);
-
-            // console.log(pageCurrentContent.experiences.data);
-            // console.log('before shift ',contentToFill.experiences);
             contentToFill.experiences.shift();
-            // console.log('after shift ',contentToFill.experiences);
 
             if (contentToFill.experiences.length === 0) { delete contentToFill.experiences }
             added = true
         }
         //if pageCurrentContent don't contain education 
         if (!pageCurrentContent.experiences) {
-            // console.log(contentToFill.experiences);
             pageCurrentContent.experiences = {
                 firstDisplay: Object.keys(pageCurrentContent).length === 0 ? false : true,
                 data: [contentToFill.experiences[0]]
@@ -131,25 +111,17 @@ export const addContentSlice = (pagesContentData, contentToFillData) => {
 
         //if pageCurrentContent and contentToFill both contain projects
         if ((contentToFill.projects && contentToFill.projects.length > 0)  && pageCurrentContent.projects) {
-            // console.log('add next certifs');
             //add projects element in currentContent
             //delete projects element from contentTofill 
             //if projects in contenttofill is empty => remove it completely 
-            // console.log('before push ',pageCurrentContent.projects.data);
             pageCurrentContent.projects.data.push(contentToFill.projects[0])
-            // console.log('after push ',pageCurrentContent.projects.data);
-
-            // console.log(pageCurrentContent.projects.data);
-            // console.log('before shift ',contentToFill.projects);
             contentToFill.projects.shift();
-            // console.log('after shift ',contentToFill.projects);
 
             if (contentToFill.projects.length === 0) { delete contentToFill.projects }
             added = true
         }
         //if pageCurrentContent don't contain education 
         if (!pageCurrentContent.projects) {
-            // console.log(contentToFill.projects);
             pageCurrentContent.projects = {
                 firstDisplay: Object.keys(pageCurrentContent).length === 0 ? false : true,
                 data: [contentToFill.projects[0]]

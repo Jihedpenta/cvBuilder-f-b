@@ -38,7 +38,6 @@ const ResumeSave = () => {
   let { resumeId } = useParams();
   const setResumeInAppContext = async (id) => {
     const resume = await getResumesById(id);
-    console.log(resume);
     setResumeContent(resume.data);
     setIndustry(resume.industry);
     setLanguage(resume.lang);
@@ -54,7 +53,6 @@ const ResumeSave = () => {
     setPentaContact({});
   };
   useEffect(() => {
-    console.log(resumeId);
     setResumeInAppContext(resumeId);
 
     return cleanState();
@@ -66,8 +64,6 @@ const ResumeSave = () => {
   }, [resumeContent]);
 
   // useEffect(() => {
-  // console.log('new resume content', resumeContent);
-  // console.log('contentToFill', contentToFill);
 
   //     setContentToFill(resumeContent)
   //     setPagesContent([{}])
@@ -76,7 +72,6 @@ const ResumeSave = () => {
 
   const handleDownloadPDF = () => {
     //handleDownloadAnonymPDF
-    // console.log(resumeContent.h);
     const candidateName =
       resumeContent.header.firstName + " " + resumeContent.header.lastName;
     const pages = [];
@@ -290,7 +285,6 @@ const ResumeSave = () => {
 
           {pagesContent.map((elem, index) => {
             const pageId = "resume-page-" + index;
-            console.log(pageId);
             return (
               <ResumePage
                 key={index}
@@ -326,7 +320,6 @@ const ResumeSave = () => {
           </Button>
           {pagesContent.map((elem, index) => {
             const pageId = "resume-page-anonym-" + index;
-            console.log(pageId);
             return (
               <ResumePage
                 key={index}

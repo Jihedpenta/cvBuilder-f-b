@@ -9,7 +9,6 @@ const useCrudUser = () => {
             const {data} = await axiosPrivate.post('/register', body);
             return data
         } catch (error) {
-            console.log(error);
             throw Error(error)
         }
     }
@@ -19,18 +18,15 @@ const useCrudUser = () => {
             const {data} = await axiosPrivate.put('/users', body);
             return data
         } catch (error) {
-            console.log(error);
             throw Error(error)
         }
     }
 
     const deleteUser = async (id) => {
-        console.log(id);
         try {
             const {data} = await axiosPrivate.delete('/users/'+id);
             return data
         } catch (error) {
-            console.log(error);
             throw Error(error)
         }
     }

@@ -69,7 +69,6 @@ const SkillsForm = () => {
         const newSkills = [...skills]
         newSkills.splice(index, 1)
         setSkills(newSkills)
-        console.log('clicked ', newSkills);
     }
     const handleEdit = (index) => {
         titleRef.current.value = skills[index]
@@ -77,14 +76,8 @@ const SkillsForm = () => {
         idRef.current.value = index
     }
     const handleSave = () => {
-        console.log('handeling save resumeContent', resumeContent);
-        console.log('handeling save, skills', skills);
-
         const newResumeData = { ...resumeContent, skills }
-        console.log('handeling save resumeContent', resumeContent);
-
         setResumeContent(newResumeData)
-        console.log(resumeContent);
     }
     return (
         <FormCard title="Skills">

@@ -28,7 +28,6 @@ const getUser = async (req, res) => {
 
 const editUser = async (req,res)=>{
     const { email,newEmail,newPwd } = req.body;
-    console.log(email,newEmail,newPwd);
     if (!email) return res.status(400).json({ 'message': 'email are required.' });
     try {
         const foundUser = await User.findOne({ email: email }).exec();

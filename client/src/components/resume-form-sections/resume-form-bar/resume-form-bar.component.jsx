@@ -27,8 +27,6 @@ const ResumeFormBar = () => {
       data: resumeContent,
       author: userId,
     };
-    // console.log('body', body);
-
     const formData = objectToFormData(body);
 
 

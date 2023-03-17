@@ -55,7 +55,6 @@ const ProjectsForm = () => {
         const company = compRef.current.value
         const location = locationRef.current.value
 
-        console.log(date,client,title,company,location,description);
 
         setErrors({
             date: date === '' ? true : false,
@@ -106,7 +105,6 @@ const ProjectsForm = () => {
         const newProjects = [...projects]
         newProjects.splice(index, 1)
         setProjects(newProjects)
-        console.log('clicked ', newProjects);
     }
     const handleEdit = (index) => {
         dateRef.current.value = projects[index].date
@@ -122,14 +120,12 @@ const ProjectsForm = () => {
     const handleSave = () => {
         const newResumeData = { ...resumeContent, projects }
         setResumeContent(newResumeData)
-        console.log(resumeContent);
     }
 
     return (
         <FormCard title='Projects'>
             <Grid container>
                 {projects.map((project, index) => {
-                    console.log(project);
                     return (
                         <Grid item xs={12} sm={12} md={12} key={index}>
                             <Grid container>

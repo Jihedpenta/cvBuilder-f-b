@@ -13,13 +13,6 @@ const useRefreshToken = () => {
       }); 
       localStorage.setItem('refreshToken',response.data.newRefreshToken);
       localStorage.setItem('accessToken',response.data.accessToken);
-      console.log("response.data :: ", response.data);
-      console.log("refreshToken useRefreshToken:: ", response.data.newRefreshToken);
-
-      console.log("accessToken useRefreshToken:: ", response.data.accessToken);
-    
-
-      
       setAuth(prev => {
           return { 
               ...prev, 

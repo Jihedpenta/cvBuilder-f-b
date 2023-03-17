@@ -53,7 +53,6 @@ const CertificationForm = () => {
             setRequiredErrMsg('')
             const newCertification = { date, title, subtitle }
             if (idRef.current?.value) {
-                console.log('there is a value ', idRef.current.value);
                 const index = idRef.current.value
                 certifications[index] = newCertification
                 const newCertifications = [...certifications]
@@ -77,7 +76,6 @@ const CertificationForm = () => {
         const newCertifications = [...certifications]
         newCertifications.splice(index, 1)
         setCertifications(newCertifications)
-        console.log('clicked ', newCertifications);
     }
     const handleEdit = (index) => {
         dateRef.current.value = certifications[index].date
@@ -87,10 +85,8 @@ const CertificationForm = () => {
         idRef.current.value = index
     }
     const handleSave = () => {
-        console.log('handeling save');
         const newResumeData = { ...resumeContent, certifications }
         setResumeContent(newResumeData)
-        console.log(resumeContent);
     }
     return (
         <FormCard title="Certifications">

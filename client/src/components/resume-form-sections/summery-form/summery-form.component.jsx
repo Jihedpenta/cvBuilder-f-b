@@ -15,7 +15,6 @@ const SummeryForm = () => {
         setErrMsg(summary === '' ? 'Please enter summery' : '')
         if (summary !== '') {
             const resumeData = JSON.parse(JSON.stringify({ ...resumeContent, summary }))
-            console.log(resumeData)
             setResumeContent(resumeData);
         }
     };

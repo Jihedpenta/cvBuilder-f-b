@@ -14,17 +14,14 @@ const useCrudResume = () => {
             const {data} = await axiosPrivate.post('/resumes', body, config);
             return data
         } catch (error) {
-            console.log(error);
             throw Error(error)
         }
     }
     const getResumesById = async (id) => {
-        console.log(id);
         try {
             const {data} = await axiosPrivate.get('/resumes/'+id);
             return data
         } catch (error) {
-            console.log(error);
             throw Error(error)
         }
     }
@@ -33,7 +30,6 @@ const useCrudResume = () => {
             const {data} = await axiosPrivate.get('/resumes/author/'+id);
             return data
         } catch (error) {
-            console.log(error);
             throw Error(error)
         }
     }
@@ -42,14 +38,12 @@ const useCrudResume = () => {
             const {data} = await axiosPrivate.get('/resumes');
             return data
         } catch (error) {
-            console.log(error);
             throw Error(error)
         }
     }
 
 
     const updateResume = async (id, body) => {
-        console.log(id);
         try {
             const config = {
                 headers: {
@@ -60,7 +54,6 @@ const useCrudResume = () => {
             // const {data} = await axiosPrivate.get('/resumes/'+id);
             return data
         } catch (error) {
-            console.log(error);
             throw Error(error)
         }
     }

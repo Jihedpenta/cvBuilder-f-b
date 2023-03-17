@@ -61,7 +61,6 @@ app.use(errorHandler);
 
 
 mongoose.connection.once('open', () => {
-    console.log('Connected to MongoDB');
     User.countDocuments({}, (err, count) => {
         if (!err && count === 0) {
           // insert initial data

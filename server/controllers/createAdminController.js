@@ -23,8 +23,6 @@ const handleCreateAdmin = async (req, res) => {
             }
         });
 
-        console.log(result);
-
         res.status(201).json({ 'success': `Admin ${email} created!` });
     } catch (err) {
         res.status(500).json({ 'message': err.message });

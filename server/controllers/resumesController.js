@@ -24,12 +24,9 @@ const getAllResumes = async (req, res) => {
 
 const createResume = async (req, res) => {
   upload(req, res, async (err) => {
-    // console.log(req);
     if (!err) {
       const { industry, data, lang, pentaContact, author } = req.body;
-      console.log(req.file);
       if (req.file?.filename) {
-        console.log("theres a file");
         const fileExt = path.extname(req.file.filename).toLowerCase();
 
         data.header.imageUrl = req.file.filename;
@@ -74,7 +71,6 @@ const createResume = async (req, res) => {
 
 const updateResume = async (req, res) => {
   upload(req, res, async (err) => {
-    // console.log(req);
     if (!err) {
       // if (!req?.params?.id) return res.status(400).json({ "message": 'Resume ID required' });
 
@@ -83,7 +79,6 @@ const updateResume = async (req, res) => {
       // const { industry, data, lang, pentaContact, author } = req.body;
 
       // const name = data.header.firstName + ' ' + data.header.lastName
-      // console.log(req.file);
       if (req.file?.filename) {
         const fileExt = path.extname(req.file.filename).toLowerCase();
 
